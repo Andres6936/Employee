@@ -19,13 +19,13 @@ class Fecha(object):
 
     """
 
-    def __init__(self, d, m, a):
+    def __init__(self, d: int, m: int, a: int):
         """
         Inicializa una fecha con los parámetros proporcionados.
 
         Args:
-            d (int): Día d > 0 y d <= 31 y d es un valor válido según el mes.
-            m (int): Mes m > 0 y m <= 12.
+            d (int): Día `d` > 0 y `d` <= 31 y `d` es un valor válido según el mes.
+            m (int): Mes `m` > 0 y `m` <= 12.
             a (int): Año.
 
         Poscondicion:
@@ -50,7 +50,7 @@ class Fecha(object):
         Año.
         """
 
-    def InicializarHoy(self):
+    def InicializarHoy(self) -> None:
         """
         Construye una nueva fecha inicializada en el día de hoy.
 
@@ -61,27 +61,62 @@ class Fecha(object):
 
         """
 
-        calendarioGregoriano = datetime.date()
+        # Usamos un calendario Gregoriano inicializado en el día de hoy.
+        calendarioGregoriano = datetime.now()
 
+        # Sacamos lo valores del día, mes y año del calendario.
         self.dia = calendarioGregoriano.day
         self.mes = calendarioGregoriano.month
         self.anio = calendarioGregoriano.year
 
-    def GetDia(self):
+    def GetDia(self) -> int:
+        """
+        Retorna el día de esta fecha.
+
+        Returns:
+
+            int: día.
+
+        """
 
         return self.dia
 
-    def GetMes(self):
+    def GetMes(self) -> int:
+        """
+        Retorna el mes de esta fecha.
+
+        Returns:
+
+            int: mes.
+
+        """
 
         return self.mes
 
-    def GetAnio(self):
+    def GetAnio(self) -> int:
+        """
+        Retorna el año de esta fecha.
+
+        Returns:
+
+            int: año.
+
+        """
 
         return self.anio
 
-    def GetDiferenciaEnMeses(self, fecha):
+    def GetDiferenciaEnMeses(self, fecha) -> int:
+        """
+        Este método sirve para dar la diferencia en meses que hay entre dos fechas.
 
-        diferencia = 0
+        Args:
+            fecha (Fecha): La fecha contra la que se está comparando. `fecha` != None.
+
+        Returns:
+
+            int: El número de meses.
+
+        """
 
         otroAnio = fecha.GetAnio()
         otroMes = fecha.GetMes()
@@ -96,6 +131,14 @@ class Fecha(object):
 
         return diferencia
 
-    def ToString(self):
+    def ToString(self) -> str:
+        """
+        Retorna una cadena que representa la fecha.
+
+        Returns:
+
+            str: La String sigue el formato día-mes-año.
+
+        """
 
         return "{0} {1} {2}".format(self.dia, self.mes, self.anio)
