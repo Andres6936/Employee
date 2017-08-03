@@ -46,9 +46,9 @@ class InterfazEmpleado(wx.Frame):
         sizerLayoutExtension.Add(self.panelExtensiones, 1, wx.EXPAND)
 
         sizerLayout.Add(sizerLayoutDatos, 1, wx.EXPAND)
-        sizerLayout.Add(sizerLayoutSalario, 1, wx.EXPAND)
+        sizerLayout.Add(sizerLayoutSalario, 0, wx.EXPAND)
         sizerLayout.Add(sizerLayoutCalculos, 1, wx.EXPAND)
-        sizerLayout.Add(sizerLayoutExtension, 1, wx.EXPAND)
+        sizerLayout.Add(sizerLayoutExtension, 0, wx.EXPAND)
 
         self.SetSizer(sizerLayout)
         self.Layout()
