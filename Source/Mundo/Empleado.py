@@ -12,7 +12,8 @@ class Empleado(object):
     Esta clase representa un empleado.
     """
 
-    def __init__(self, nNombre, nApellido, nSexo, nFechaN, nFechaI, nSalario):
+    def __init__(self, nNombre: str, nApellido: str, nSexo: int,
+                 nFechaN: Fecha, nFechaI: Fecha, nSalario: int):
         """
         Inicializa un empleado con la información básica.
 
@@ -31,32 +32,32 @@ class Empleado(object):
 
         """
 
-        self.nombre = nNombre
+        self.nombre: str = nNombre
         """
         Nombre.
         """
 
-        self.apellido = nApellido
+        self.apellido: str = nApellido
         """
         Apellido.
         """
 
-        self.sexo = nSexo
+        self.sexo: int = nSexo
         """
         Sexo o género.
         """
 
-        self.fechaNacimiento = nFechaN
+        self.fechaNacimiento: Fecha = nFechaN
         """
         Fecha de nacimiento.
         """
 
-        self.fechaIngreso = nFechaI
+        self.fechaIngreso: Fecha = nFechaI
         """
         Fecha de ingreso.
         """
 
-        self.salario = nSalario
+        self.salario: int = nSalario
         """
         Salario.
         """
@@ -226,7 +227,23 @@ class Empleado(object):
 
         self.fechaIngreso = nFechaIngreso
 
-    def SetImagen(self, nImagen: Fecha) -> None:
+    def SetFechaNacimiento(self, nFechaNacimiento: Fecha) -> None:
+        """
+        Cambia la fecha de nacimiento del empleado.
+
+        Args:
+            nFechaNacimiento (Fecha): La nueva fecha de nacimiento del empleado.
+                *nFechaNacimiento* != None.
+
+        Poscondicion:
+
+            fechaNacimiento == nFechaNacimiento.
+
+        """
+
+        self.fechaNacimiento = nFechaNacimiento
+
+    def SetImagen(self, nImagen: str) -> None:
         """
         Cambia la ruta donde está la imagen del empleado.
 

@@ -11,18 +11,19 @@ from Source.Interfaz.PanelExtensiones import PanelExtensiones
 from Source.Interfaz.PanelConsultas import PanelConsultas
 from Source.Interfaz.PanelSalario import PanelSalario
 from Source.Interfaz.PanelDatos import PanelDatos
+from Source.Mundo.Empleado import Empleado
 
 class InterfazEmpleado(wx.Frame):
 
-    def __init__(self, *args, **kw):
+    def __init__(self, empleado, parent, id=wx.ID_ANY, title="", pos=wx.DefaultPosition,
+                 size=wx.DefaultSize, style=wx.DEFAULT_FRAME_STYLE, name=wx.FrameNameStr):
 
-        super().__init__(*args, **kw)
+        super().__init__(parent, id, title, pos, size, style, name)
 
         self.SetBackgroundColour('White')
 
         self.SetTitle('Sistema de Empleados')
         self.SetSize(wx.Size(530, 530))
-        self.SetMaxSize(wx.Size(530, 530))
         self.SetMinSize(wx.Size(530, 530))
         self.Show(True)
 
@@ -50,13 +51,38 @@ class InterfazEmpleado(wx.Frame):
         sizerLayout.Add(sizerLayoutCalculos, 1, wx.EXPAND)
         sizerLayout.Add(sizerLayoutExtension, 0, wx.EXPAND)
 
+        # Atributo Empleado
+        self.empleado: Empleado = empleado
+        self.panelConsultas.SetEmpleado(self.empleado)
+
         self.SetSizer(sizerLayout)
         self.Layout()
         self.Fit()
 
 
     def ActualizarEmpleado(self):
-        pass
+
+        # Variables locales
+        nombre: str = self.empleado.GetNombre()
+        apellido: str = self.empleado.GetApellido()
+
+        iSexo: int = self.empleado.GetSexo()
+
+        if iSexo == 1:
+            sexo = 'M'
+        else:
+            sexo = 'F'
+
+        fechaI: str = self.empleado.GetFechaIngreso()
+        fechaN: str = self.empleado.GetFechaNacimiento()
+        salario: int = self.empleado.GetSalario()
+        imagen: str = self.empleado.GetImagen()
+
+        self.panelDatos.ActualizarCampos(nombre, apellido, sexo, fechaI, fechaN, imagen)
+        self.panelSalario.ActualizarSalario(salario)
+
+        self.panelConsultas.LimpiarCampos()
+
 
     def ModificarSalario(self):
         pass

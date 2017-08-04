@@ -43,24 +43,44 @@ class PanelDatos(wx.Panel):
 
         # Le damos forma al panel.
         sizerLayoutMain = wx.BoxSizer(wx.VERTICAL)
-        sizerLayout = wx.GridBagSizer(vgap=20, hgap=20)
+        self.sizerLayout = wx.GridBagSizer(vgap=20, hgap=20)
 
-        rutaImagen = './Data/Empleado.jpg'
-        bitmap = wx.Bitmap(rutaImagen, wx.BITMAP_TYPE_JPEG)
-        imagen = wx.StaticBitmap(self, -1, bitmap)
+        # Imagen del empleado.
+        self.imagen = wx.StaticBitmap(self, -1)
 
-        sizerLayout.Add(self.etiquetaNombre, pos=(0, 0))
-        sizerLayout.Add(self.etiquetaApellido, pos=(1, 0))
-        sizerLayout.Add(self.etiquetaSexo, pos=(2, 0))
-        sizerLayout.Add(self.etiquetaFechaN, pos=(3, 0))
-        sizerLayout.Add(self.etiquetaFechaI, pos=(4, 0))
-        sizerLayout.Add(self.textoNombre, pos=(0, 1))
-        sizerLayout.Add(self.textoApellido, pos=(1, 1))
-        sizerLayout.Add(self.textoSexo, pos=(2, 1))
-        sizerLayout.Add(self.textoFechaN, pos=(3, 1))
-        sizerLayout.Add(self.textoFechaI, pos=(4, 1))
-        sizerLayout.Add(imagen, pos=(0, 2), span=(5, 1))
+        self.sizerLayout.Add(self.etiquetaNombre, pos=(0, 0))
+        self.sizerLayout.Add(self.etiquetaApellido, pos=(1, 0))
+        self.sizerLayout.Add(self.etiquetaSexo, pos=(2, 0))
+        self.sizerLayout.Add(self.etiquetaFechaN, pos=(3, 0))
+        self.sizerLayout.Add(self.etiquetaFechaI, pos=(4, 0))
+        self.sizerLayout.Add(self.textoNombre, pos=(0, 1))
+        self.sizerLayout.Add(self.textoApellido, pos=(1, 1))
+        self.sizerLayout.Add(self.textoSexo, pos=(2, 1))
+        self.sizerLayout.Add(self.textoFechaN, pos=(3, 1))
+        self.sizerLayout.Add(self.textoFechaI, pos=(4, 1))
+        self.sizerLayout.Add(self.imagen, pos=(0, 2), span=(5, 1))
 
-        sizerLayoutMain.Add(sizerLayout, 0, wx.ALIGN_CENTER)
+        sizerLayoutMain.Add(self.sizerLayout, 0, wx.ALIGN_CENTER)
 
         self.SetSizer(sizerLayoutMain)
+
+
+    def ActualizarCampos(self, nombre, apellido, sexo, fechaI, fechaN, imagen):
+
+        self.textoNombre.SetLabel(nombre)
+        self.textoApellido.SetLabel(apellido)
+        self.textoSexo.SetLabel(sexo)
+        self.textoFechaI.SetLabel(fechaI)
+        self.textoFechaN.SetLabel(fechaN)
+
+        # Establecemos la imagen en el StaticBitmap.
+        self.imagen.SetBitmap(self.CargarImagen(imagen))
+        # Llamada al método Layout para acomodar el panel.
+        self.Layout()
+
+    def CargarImagen(self, imagen) -> wx.Bitmap:
+
+        rutaImagen = imagen
+        bitmap = wx.Bitmap(rutaImagen, wx.BITMAP_TYPE_JPEG)
+
+        return bitmap

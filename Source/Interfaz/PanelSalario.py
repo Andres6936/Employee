@@ -9,13 +9,16 @@ import wx
 
 class PanelSalario(wx.Panel):
 
-    def __init__(self, *args, **kw):
+    def __init__(self, parent, id=wx.ID_ANY, pos=wx.DefaultPosition, size=wx.DefaultSize,
+                style=wx.TAB_TRAVERSAL, name=wx.PanelNameStr, nNumeroCandidato=None):
 
-        super().__init__(*args, **kw)
+        super().__init__(parent, id, pos, size, style, name)
+
+        self.interfazEmpleado = parent
 
         self.etiquetaSalario = wx.StaticText(self, -1, 'Salario:')
 
-        self.textoSalario = wx.StaticText(self, -1, '1.000.000')
+        self.textoSalario = wx.StaticText(self, -1, '')
 
         self.botonCambiarSalario = wx.Button(self, -1, 'Modificar')
 
@@ -35,3 +38,9 @@ class PanelSalario(wx.Panel):
         sizerLayout.AddStretchSpacer(prop=1)
 
         self.SetSizer(sizerLayout)
+
+
+    def ActualizarSalario(self, salario):
+
+        self.textoSalario.SetLabel(str(salario))
+        self.Layout()
