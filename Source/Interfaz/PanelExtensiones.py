@@ -19,9 +19,11 @@ class PanelExtensiones(wx.Panel):
 
         # Botón Opción 1.
         self.botonOpcion1 = wx.Button(self, -1, 'Opción 1')
+        self.Bind(wx.EVT_BUTTON, self.OnOpcion1, self.botonOpcion1)
 
         # Botón Opción 2.
         self.botonOpcion2 = wx.Button(self, -1, 'Opción 2')
+        self.Bind(wx.EVT_BUTTON, self.OnOpcion2, self.botonOpcion2)
 
         # Configuramos el Border Layout del panel.
         sizerLayout = wx.BoxSizer(wx.HORIZONTAL)
@@ -33,3 +35,12 @@ class PanelExtensiones(wx.Panel):
 
         self.SetSizer(sizerLayout)
         self.Fit()
+
+
+    def OnOpcion1(self, evento):
+
+        self.principal.ReqFuncOpcion1()
+
+    def OnOpcion2(self, evento):
+
+        self.principal.ReqFuncOpcion2()

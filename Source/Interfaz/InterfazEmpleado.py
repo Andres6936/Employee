@@ -88,7 +88,11 @@ class InterfazEmpleado(wx.Frame):
         pass
 
     def ReqFuncOpcion1(self):
-        pass
+
+        resultado = self.empleado.Metodo1()
+        wx.MessageBox(resultado, 'Respuesta', wx.OK | wx.ICON_INFORMATION)
 
     def ReqFuncOpcion2(self):
-        pass
+
+        resultado = self.empleado.Metodo2()
+        wx.MessageBox(resultado, 'Respuesta', wx.OK | wx.ICON_INFORMATION)
