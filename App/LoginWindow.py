@@ -9,9 +9,13 @@ class LoginWindow(QWidget):
     def __init__(self):
         super().__init__()
         self.mainWindow = None
+        self.loginButton = None
         self.passwordEdit = None
         self.registrationDialog = None
         self.loginIsSuccessful = False
+
+        self.usernameText = ""
+        self.passwordText = ""
 
         self.setFixedSize(360, 220)
         self.setWindowTitle("Login")
@@ -33,6 +37,7 @@ class LoginWindow(QWidget):
 
         usernameEdit = QLineEdit(self)
         usernameEdit.resize(250, 24)
+        usernameEdit.textChanged.connect(self.onTextChangedUsername)
         usernameLayout.addWidget(usernameEdit)
 
         passwordLayout = QHBoxLayout()
@@ -44,16 +49,18 @@ class LoginWindow(QWidget):
         self.passwordEdit = QLineEdit(self)
         self.passwordEdit.setEchoMode(QLineEdit.EchoMode.Password)
         self.passwordEdit.resize(250, 24)
+        self.passwordEdit.textChanged.connect(self.onTextChangedPassword)
         passwordLayout.addWidget(self.passwordEdit)
 
         showPasswordCheckbox = QCheckBox("Show Password", self)
         showPasswordCheckbox.toggled.connect(self.onClickShowPasswordIfChecked)
         mainLayout.addWidget(showPasswordCheckbox)
 
-        loginButton = QPushButton("Login", self)
-        loginButton.resize(320, 24)
-        loginButton.clicked.connect(self.onClickLoginButton)
-        mainLayout.addWidget(loginButton)
+        self.loginButton = QPushButton("Login", self)
+        self.loginButton.resize(320, 24)
+        self.loginButton.setEnabled(False)
+        self.loginButton.clicked.connect(self.onClickLoginButton)
+        mainLayout.addWidget(self.loginButton)
 
         notMemberLabel = QLabel("Not a member?", self)
         mainLayout.addWidget(notMemberLabel)
@@ -80,6 +87,20 @@ class LoginWindow(QWidget):
     def openApplicationWindow(self):
         self.mainWindow = MainWindow()
         self.mainWindow.show()
+
+    def validateUsernameAndPassword(self):
+        if len(self.usernameText) == 0 or len(self.passwordText) == 0:
+            self.loginButton.setEnabled(False)
+        else:
+            self.loginButton.setEnabled(True)
+
+    def onTextChangedUsername(self, username: str):
+        self.usernameText = username
+        self.validateUsernameAndPassword()
+
+    def onTextChangedPassword(self, password: str):
+        self.passwordText = password
+        self.validateUsernameAndPassword()
 
     def closeEvent(self, event: QCloseEvent) -> None:
         if self.loginIsSuccessful:
