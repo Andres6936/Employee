@@ -1,5 +1,5 @@
 from PyQt6.QtGui import QFont, QCloseEvent
-from PyQt6.QtWidgets import QWidget, QLabel, QLineEdit, QCheckBox, QPushButton, QMessageBox
+from PyQt6.QtWidgets import QWidget, QLabel, QLineEdit, QCheckBox, QPushButton, QMessageBox, QHBoxLayout, QVBoxLayout
 
 from App.MainWindow import MainWindow
 from App.NewUserDialog import NewUserDialog
@@ -19,40 +19,48 @@ class LoginWindow(QWidget):
         self.show()
 
     def setUpMainWindow(self):
-        loginLabel = QLabel("Login", self)
+        mainLayout = QVBoxLayout(self)
+
+        loginLabel = QLabel("Login")
         loginLabel.setFont(QFont("Arial", 20))
-        loginLabel.move(160, 10)
+        mainLayout.addWidget(loginLabel)
+
+        usernameLayout = QHBoxLayout()
+        mainLayout.addLayout(usernameLayout)
 
         usernameLabel = QLabel("Username:", self)
-        usernameLabel.move(20, 54)
+        usernameLayout.addWidget(usernameLabel)
 
         usernameEdit = QLineEdit(self)
         usernameEdit.resize(250, 24)
-        usernameEdit.move(90, 50)
+        usernameLayout.addWidget(usernameEdit)
+
+        passwordLayout = QHBoxLayout()
+        mainLayout.addLayout(passwordLayout)
 
         passwordLabel = QLabel("Password:", self)
-        passwordLabel.move(20, 86)
+        passwordLayout.addWidget(passwordLabel)
 
         self.passwordEdit = QLineEdit(self)
         self.passwordEdit.setEchoMode(QLineEdit.EchoMode.Password)
         self.passwordEdit.resize(250, 24)
-        self.passwordEdit.move(90, 82)
+        passwordLayout.addWidget(self.passwordEdit)
 
         showPasswordCheckbox = QCheckBox("Show Password", self)
-        showPasswordCheckbox.move(90, 110)
         showPasswordCheckbox.toggled.connect(self.onClickShowPasswordIfChecked)
+        mainLayout.addWidget(showPasswordCheckbox)
 
         loginButton = QPushButton("Login", self)
         loginButton.resize(320, 24)
-        loginButton.move(20, 140)
         loginButton.clicked.connect(self.onClickLoginButton)
+        mainLayout.addWidget(loginButton)
 
         notMemberLabel = QLabel("Not a member?", self)
-        notMemberLabel.move(20, 186)
+        mainLayout.addWidget(notMemberLabel)
 
         signUpButton = QPushButton("Sign Up", self)
-        signUpButton.move(120, 180)
         signUpButton.clicked.connect(self.onClickCreateNewUser)
+        mainLayout.addWidget(signUpButton)
 
     def onClickShowPasswordIfChecked(self, checked):
         if checked:
