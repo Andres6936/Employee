@@ -1,5 +1,5 @@
 from PyQt6.QtGui import QFont
-from PyQt6.QtWidgets import QDialog, QLabel, QLineEdit, QPushButton
+from PyQt6.QtWidgets import QDialog, QLabel, QLineEdit, QPushButton, QMessageBox
 
 
 class NewUserDialog(QDialog):
@@ -13,12 +13,12 @@ class NewUserDialog(QDialog):
         loginLabel.setFont(QFont("Arial", 20))
         loginLabel.move(90, 20)
 
-        nameLabel = QLabel("Username:", self)
-        nameLabel.move(20, 144)
+        usernameLabel = QLabel("Username:", self)
+        usernameLabel.move(20, 144)
 
-        nameEdit = QLineEdit(self)
-        nameEdit.resize(250, 24)
-        nameEdit.move(90, 140)
+        self.usernameEdit = QLineEdit(self)
+        self.usernameEdit.resize(250, 24)
+        self.usernameEdit.move(90, 140)
 
         fullNameLabel = QLabel("Full Name:", self)
         fullNameLabel.move(20, 174)
@@ -30,18 +30,18 @@ class NewUserDialog(QDialog):
         newPasswordLabel = QLabel("Password:", self)
         newPasswordLabel.move(20, 204)
 
-        newPasswordEdit = QLineEdit(self)
-        newPasswordEdit.setEchoMode(QLineEdit.EchoMode.Password)
-        newPasswordEdit.resize(250, 24)
-        newPasswordEdit.move(90, 200)
+        self.newPasswordEdit = QLineEdit(self)
+        self.newPasswordEdit.setEchoMode(QLineEdit.EchoMode.Password)
+        self.newPasswordEdit.resize(250, 24)
+        self.newPasswordEdit.move(90, 200)
 
         confirmLabel = QLabel("Confirm:", self)
         confirmLabel.move(20, 234)
 
-        confirmEdit = QLineEdit(self)
-        confirmEdit.setEchoMode(QLineEdit.EchoMode.Password)
-        confirmEdit.resize(250, 24)
-        confirmEdit.move(90, 230)
+        self.confirmEdit = QLineEdit(self)
+        self.confirmEdit.setEchoMode(QLineEdit.EchoMode.Password)
+        self.confirmEdit.resize(250, 24)
+        self.confirmEdit.move(90, 230)
 
         signUpButton = QPushButton("Sign Up", self)
         signUpButton.resize(320, 32)
@@ -49,4 +49,20 @@ class NewUserDialog(QDialog):
         signUpButton.clicked.connect(self.onClickSignUp)
 
     def onClickSignUp(self):
-        pass
+        usernameText = self.usernameEdit.text()
+        passwordText = self.newPasswordEdit.text()
+        confirmText = self.confirmEdit.text()
+
+        if usernameText == "" or passwordText == "":
+            QMessageBox.warning(
+                self, "Error Message",
+                "Please enter username or password values.",
+                QMessageBox.StandardButton.Close,
+                QMessageBox.StandardButton.Close)
+
+        elif passwordText != confirmText:
+            QMessageBox.warning(
+                self, "Error Message",
+                "The password you entered do not match.",
+                QMessageBox.StandardButton.Close,
+                QMessageBox.StandardButton.Close)
