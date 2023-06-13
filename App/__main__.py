@@ -3,10 +3,13 @@ import sys
 from PyQt6.QtGui import QFont, QCloseEvent
 from PyQt6.QtWidgets import QApplication, QWidget, QLabel, QLineEdit, QCheckBox, QPushButton, QMessageBox
 
+from App.MainWindow import MainWindow
+
 
 class LoginWindow(QWidget):
     def __init__(self):
         super().__init__()
+        self.mainWindow = None
         self.passwordEdit = None
         self.loginIsSuccessful = False
 
@@ -66,7 +69,8 @@ class LoginWindow(QWidget):
         pass
 
     def openApplicationWindow(self):
-        pass
+        self.mainWindow = MainWindow()
+        self.mainWindow.show()
 
     def closeEvent(self, event: QCloseEvent) -> None:
         if self.loginIsSuccessful:
