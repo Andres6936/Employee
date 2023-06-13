@@ -1,7 +1,7 @@
 import sys
 
-from PyQt6.QtGui import QFont
-from PyQt6.QtWidgets import QApplication, QWidget, QLabel, QLineEdit, QCheckBox, QPushButton
+from PyQt6.QtGui import QFont, QCloseEvent
+from PyQt6.QtWidgets import QApplication, QWidget, QLabel, QLineEdit, QCheckBox, QPushButton, QMessageBox
 
 
 class LoginWindow(QWidget):
@@ -67,6 +67,21 @@ class LoginWindow(QWidget):
 
     def openApplicationWindow(self):
         pass
+
+    def closeEvent(self, event: QCloseEvent) -> None:
+        if self.loginIsSuccessful:
+            event.accept()
+        else:
+            answer = QMessageBox.question(
+                self, "Quit Application?",
+                "Are you sure you want to QUIT?",
+                QMessageBox.StandardButton.No | \
+                QMessageBox.StandardButton.Yes,
+                QMessageBox.StandardButton.Yes)
+            if answer == QMessageBox.StandardButton.Yes:
+                event.accept()
+            if answer == QMessageBox.StandardButton.No:
+                event.ignore()
 
 
 if __name__ == '__main__':
