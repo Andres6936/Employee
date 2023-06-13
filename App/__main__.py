@@ -4,6 +4,7 @@ from PyQt6.QtGui import QFont, QCloseEvent
 from PyQt6.QtWidgets import QApplication, QWidget, QLabel, QLineEdit, QCheckBox, QPushButton, QMessageBox
 
 from App.MainWindow import MainWindow
+from App.NewUserDialog import NewUserDialog
 
 
 class LoginWindow(QWidget):
@@ -11,6 +12,7 @@ class LoginWindow(QWidget):
         super().__init__()
         self.mainWindow = None
         self.passwordEdit = None
+        self.registrationDialog = None
         self.loginIsSuccessful = False
 
         self.setFixedSize(360, 220)
@@ -66,7 +68,8 @@ class LoginWindow(QWidget):
         self.openApplicationWindow()
 
     def onClickCreateNewUser(self):
-        pass
+        self.registrationDialog = NewUserDialog()
+        self.registrationDialog.show()
 
     def openApplicationWindow(self):
         self.mainWindow = MainWindow()
