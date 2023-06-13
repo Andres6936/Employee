@@ -7,6 +7,7 @@ from PyQt6.QtWidgets import QApplication, QWidget, QLabel, QLineEdit, QCheckBox,
 class LoginWindow(QWidget):
     def __init__(self):
         super().__init__()
+        self.passwordEdit = None
         self.loginIsSuccessful = False
 
         self.setFixedSize(360, 220)
@@ -29,25 +30,40 @@ class LoginWindow(QWidget):
         passwordLabel = QLabel("Password:", self)
         passwordLabel.move(20, 86)
 
-        passwordEdit = QLineEdit(self)
-        passwordEdit.setEchoMode(QLineEdit.EchoMode.Password)
-        passwordEdit.resize(250, 24)
-        passwordEdit.move(90, 82)
+        self.passwordEdit = QLineEdit(self)
+        self.passwordEdit.setEchoMode(QLineEdit.EchoMode.Password)
+        self.passwordEdit.resize(250, 24)
+        self.passwordEdit.move(90, 82)
 
         showPasswordCheckbox = QCheckBox("Show Password", self)
         showPasswordCheckbox.move(90, 110)
+        showPasswordCheckbox.toggled.connect(self.onClickShowPasswordIfChecked)
 
         loginButton = QPushButton("Login", self)
         loginButton.resize(320, 24)
         loginButton.move(20, 140)
+        loginButton.clicked.connect(self.onClickLoginButton)
 
         notMemberLabel = QLabel("Not a member?", self)
         notMemberLabel.move(20, 186)
+
+        signUpButton = QPushButton("Sign Up", self)
+        signUpButton.move(120, 180)
+        signUpButton.clicked.connect(self.onClickCreateNewUser)
+
+    def onClickShowPasswordIfChecked(self, checked):
+        if checked:
+            self.passwordEdit.setEchoMode(QLineEdit.EchoMode.Normal)
+        elif not checked:
+            self.passwordEdit.setEchoMode(QLineEdit.EchoMode.Password)
 
     def onClickLoginButton(self):
         self.loginIsSuccessful = True
         self.close()
         self.openApplicationWindow()
+
+    def onClickCreateNewUser(self):
+        pass
 
     def openApplicationWindow(self):
         pass
