@@ -17,7 +17,7 @@ class LoginWindow(QWidget):
         self.usernameText = ""
         self.passwordText = ""
 
-        self.setFixedSize(360, 220)
+        self.setFixedSize(375, 667)
         self.setWindowTitle("Login")
         self.setUpMainWindow()
         self.show()
