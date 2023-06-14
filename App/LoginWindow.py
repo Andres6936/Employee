@@ -1,3 +1,4 @@
+from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QFont, QCloseEvent
 from PyQt6.QtWidgets import QWidget, QLabel, QLineEdit, QCheckBox, QPushButton, QMessageBox, QHBoxLayout, QVBoxLayout
 
@@ -27,6 +28,7 @@ class LoginWindow(QWidget):
 
         loginLabel = QLabel("Login")
         loginLabel.setFont(QFont("Arial", 20))
+        loginLabel.setAlignment(Qt.AlignmentFlag.AlignTop | Qt.AlignmentFlag.AlignHCenter)
         mainLayout.addWidget(loginLabel)
 
         usernameLayout = QHBoxLayout()
@@ -63,6 +65,7 @@ class LoginWindow(QWidget):
         mainLayout.addWidget(self.loginButton)
 
         notMemberLabel = QLabel("Not a member?", self)
+        notMemberLabel.setAlignment(Qt.AlignmentFlag.AlignBottom | Qt.AlignmentFlag.AlignHCenter)
         mainLayout.addWidget(notMemberLabel)
 
         signUpButton = QPushButton("Sign Up", self)
