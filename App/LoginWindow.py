@@ -4,6 +4,7 @@ from PyQt6.QtWidgets import QWidget, QLabel, QLineEdit, QCheckBox, QPushButton, 
 
 from App.MainWindow import MainWindow
 from App.NewUserDialog import NewUserDialog
+from App.Services.Connector import Connector
 
 
 class LoginWindow(QWidget):
@@ -14,6 +15,8 @@ class LoginWindow(QWidget):
         self.passwordEdit = None
         self.registrationDialog = None
         self.loginIsSuccessful = False
+
+        self.connector = Connector()
 
         self.usernameText = ""
         self.passwordText = ""

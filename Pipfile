@@ -6,6 +6,7 @@ name = "pypi"
 [packages]
 wxpython = "~=4.2"
 pyqt6 = "*"
+azure-cosmos = "==4.4.*"
 
 [dev-packages]
 
