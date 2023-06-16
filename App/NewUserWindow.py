@@ -1,12 +1,11 @@
 from PyQt6.QtGui import QFont
-from PyQt6.QtWidgets import QDialog, QLabel, QLineEdit, QPushButton, QMessageBox
+from PyQt6.QtWidgets import QDialog, QLabel, QLineEdit, QPushButton, QMessageBox, QWidget
 
 
-class NewUserDialog(QDialog):
+class NewUserWindow(QWidget):
     def __init__(self):
         super().__init__()
-        self.setModal(True)
-        self.setFixedSize(360, 320)
+        self.setFixedSize(375, 667)
         self.setWindowTitle("Registration")
 
         loginLabel = QLabel("Create New Account", self)

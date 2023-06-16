@@ -3,7 +3,7 @@ from PyQt6.QtGui import QFont, QCloseEvent
 from PyQt6.QtWidgets import QWidget, QLabel, QLineEdit, QCheckBox, QPushButton, QMessageBox, QHBoxLayout, QVBoxLayout
 
 from App.MainWindow import MainWindow
-from App.NewUserDialog import NewUserDialog
+from App.NewUserWindow import NewUserWindow
 from App.Services.Connector import Connector
 
 
@@ -15,6 +15,7 @@ class LoginWindow(QWidget):
         self.passwordEdit = None
         self.registrationDialog = None
         self.loginIsSuccessful = False
+        self.registerNewUser = False
 
         self.connector = Connector()
 
@@ -84,13 +85,17 @@ class LoginWindow(QWidget):
     def onClickLoginButton(self):
         self.loginIsSuccessful = True
         self.close()
-        self.openApplicationWindow()
+        self.mainWindow = MainWindow()
+        self.mainWindow.show()
 
     def onClickCreateNewUser(self):
-        self.registrationDialog = NewUserDialog()
+        self.registerNewUser = True
+        self.close()
+        self.registrationDialog = NewUserWindow()
         self.registrationDialog.show()
 
     def openApplicationWindow(self):
+        self.close()
         self.mainWindow = MainWindow()
         self.mainWindow.show()
 
@@ -109,7 +114,7 @@ class LoginWindow(QWidget):
         self.validateUsernameAndPassword()
 
     def closeEvent(self, event: QCloseEvent) -> None:
-        if self.loginIsSuccessful:
+        if self.loginIsSuccessful or self.registerNewUser:
             event.accept()
         else:
             answer = QMessageBox.question(
