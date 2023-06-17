@@ -21,12 +21,12 @@ class NewUserWindow(QWidget):
         fullNameEdit = QLineEdit(self)
         fullNameEdit.resize(250, 24)
 
-        emailEdit = QLineEdit(self)
-        emailEdit.setPlaceholderText("<username>@<domain>.com")
+        self.emailEdit = QLineEdit(self)
+        self.emailEdit.setPlaceholderText("<username>@<domain>.com")
         regex = QRegularExpression(
             "\\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[com]{3}\\b",
             QRegularExpression.PatternOption.CaseInsensitiveOption)
-        emailEdit.setValidator(QRegularExpressionValidator(regex))
+        self.emailEdit.setValidator(QRegularExpressionValidator(regex))
 
         self.newPasswordEdit = QLineEdit(self)
         self.newPasswordEdit.setEchoMode(QLineEdit.EchoMode.Password)
@@ -35,6 +35,9 @@ class NewUserWindow(QWidget):
         self.confirmEdit = QLineEdit(self)
         self.confirmEdit.setEchoMode(QLineEdit.EchoMode.Password)
         self.confirmEdit.resize(250, 24)
+
+        self.feedbackLabel = QLabel()
+        self.feedbackLabel.setAlignment(Qt.AlignmentFlag.AlignBottom)
 
         signUpButton = QPushButton("Sign Up", self)
         signUpButton.resize(320, 32)
@@ -47,11 +50,12 @@ class NewUserWindow(QWidget):
 
         mainForm.addRow("Username", self.usernameEdit)
         mainForm.addRow("Fullname", fullNameEdit)
-        mainForm.addRow("Email", emailEdit)
+        mainForm.addRow("Email", self.emailEdit)
         mainForm.addRow("Password", self.newPasswordEdit)
         mainForm.addRow("Confirm", self.confirmEdit)
 
         root.addLayout(mainForm)
+        root.addWidget(self.feedbackLabel)
         root.addWidget(signUpButton)
 
         self.setLayout(root)
@@ -72,5 +76,12 @@ class NewUserWindow(QWidget):
             QMessageBox.warning(
                 self, "Error Message",
                 "The password you entered do not match.",
+                QMessageBox.StandardButton.Close,
+                QMessageBox.StandardButton.Close)
+
+        elif not self.emailEdit.hasAcceptableInput():
+            QMessageBox.warning(
+                self, "Error Message",
+                "The email entered incorrectly.",
                 QMessageBox.StandardButton.Close,
                 QMessageBox.StandardButton.Close)
