@@ -1,3 +1,4 @@
+from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QFont
 from PyQt6.QtWidgets import QLabel, QLineEdit, QPushButton, QMessageBox, QWidget, QVBoxLayout, QHBoxLayout
 
@@ -11,6 +12,7 @@ class NewUserWindow(QWidget):
 
         loginLabel = QLabel("Create New Account", self)
         loginLabel.setFont(QFont("Arial", 20))
+        loginLabel.setAlignment(Qt.AlignmentFlag.AlignTop | Qt.AlignmentFlag.AlignHCenter)
         root.addWidget(loginLabel)
 
         usernameLayout = QHBoxLayout()
