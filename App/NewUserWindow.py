@@ -65,6 +65,8 @@ class NewUserWindow(QWidget):
         passwordText = self.newPasswordEdit.text()
         confirmText = self.confirmEdit.text()
 
+        self.feedbackLabel.clear()
+
         if usernameText == "" or passwordText == "":
             QMessageBox.warning(
                 self, "Error Message",
@@ -80,8 +82,4 @@ class NewUserWindow(QWidget):
                 QMessageBox.StandardButton.Close)
 
         elif not self.emailEdit.hasAcceptableInput():
-            QMessageBox.warning(
-                self, "Error Message",
-                "The email entered incorrectly.",
-                QMessageBox.StandardButton.Close,
-                QMessageBox.StandardButton.Close)
+            self.feedbackLabel.setText("The email entered incorrectly.")
