@@ -1,5 +1,5 @@
-from PyQt6.QtCore import Qt
-from PyQt6.QtGui import QFont
+from PyQt6.QtCore import Qt, QRegularExpression
+from PyQt6.QtGui import QFont, QRegularExpressionValidator
 from PyQt6.QtWidgets import QLabel, QLineEdit, QPushButton, QMessageBox, QWidget, QVBoxLayout, QHBoxLayout
 
 
@@ -34,6 +34,20 @@ class NewUserWindow(QWidget):
         fullNameLayout.addWidget(fullNameEdit)
 
         root.addLayout(fullNameLayout)
+
+        emailLayout = QHBoxLayout()
+        emailLabel = QLabel("Email:", self)
+        emailLayout.addWidget(emailLabel)
+
+        emailEdit = QLineEdit(self)
+        emailEdit.setPlaceholderText("<username>@<domain>.com")
+        regex = QRegularExpression(
+            "\\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[com]{3}\\b",
+            QRegularExpression.PatternOption.CaseInsensitiveOption)
+        emailEdit.setValidator(QRegularExpressionValidator(regex))
+        emailLayout.addWidget(emailEdit)
+
+        root.addLayout(emailLayout)
 
         newPasswordLayout = QHBoxLayout()
         newPasswordLabel = QLabel("Password:", self)
