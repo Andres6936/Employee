@@ -1,5 +1,5 @@
 from PyQt6.QtGui import QFont
-from PyQt6.QtWidgets import QDialog, QLabel, QLineEdit, QPushButton, QMessageBox, QWidget
+from PyQt6.QtWidgets import QLabel, QLineEdit, QPushButton, QMessageBox, QWidget, QVBoxLayout, QHBoxLayout
 
 
 class NewUserWindow(QWidget):
@@ -7,45 +7,60 @@ class NewUserWindow(QWidget):
         super().__init__()
         self.setFixedSize(375, 667)
         self.setWindowTitle("Registration")
+        root = QVBoxLayout()
 
         loginLabel = QLabel("Create New Account", self)
         loginLabel.setFont(QFont("Arial", 20))
-        loginLabel.move(90, 20)
+        root.addWidget(loginLabel)
 
+        usernameLayout = QHBoxLayout()
         usernameLabel = QLabel("Username:", self)
-        usernameLabel.move(20, 144)
+        usernameLayout.addWidget(usernameLabel)
 
         self.usernameEdit = QLineEdit(self)
         self.usernameEdit.resize(250, 24)
-        self.usernameEdit.move(90, 140)
+        usernameLayout.addWidget(self.usernameEdit)
 
+        root.addLayout(usernameLayout)
+
+        fullNameLayout = QHBoxLayout()
         fullNameLabel = QLabel("Full Name:", self)
-        fullNameLabel.move(20, 174)
+        fullNameLayout.addWidget(fullNameLabel)
 
         fullNameEdit = QLineEdit(self)
         fullNameEdit.resize(250, 24)
-        fullNameEdit.move(90, 170)
+        fullNameLayout.addWidget(fullNameEdit)
 
+        root.addLayout(fullNameLayout)
+
+        newPasswordLayout = QHBoxLayout()
         newPasswordLabel = QLabel("Password:", self)
-        newPasswordLabel.move(20, 204)
+        newPasswordLayout.addWidget(newPasswordLabel)
 
         self.newPasswordEdit = QLineEdit(self)
         self.newPasswordEdit.setEchoMode(QLineEdit.EchoMode.Password)
         self.newPasswordEdit.resize(250, 24)
-        self.newPasswordEdit.move(90, 200)
+        newPasswordLayout.addWidget(self.newPasswordEdit)
 
+        root.addLayout(newPasswordLayout)
+
+        confirmPasswordLayout = QHBoxLayout()
         confirmLabel = QLabel("Confirm:", self)
-        confirmLabel.move(20, 234)
+        confirmPasswordLayout.addWidget(confirmLabel)
 
         self.confirmEdit = QLineEdit(self)
         self.confirmEdit.setEchoMode(QLineEdit.EchoMode.Password)
         self.confirmEdit.resize(250, 24)
-        self.confirmEdit.move(90, 230)
+        confirmPasswordLayout.addWidget(self.confirmEdit)
+
+        root.addLayout(confirmPasswordLayout)
 
         signUpButton = QPushButton("Sign Up", self)
         signUpButton.resize(320, 32)
-        signUpButton.move(20, 270)
         signUpButton.clicked.connect(self.onClickSignUp)
+        root.addWidget(signUpButton)
+
+        self.setLayout(root)
 
     def onClickSignUp(self):
         usernameText = self.usernameEdit.text()
