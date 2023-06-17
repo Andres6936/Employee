@@ -3,13 +3,15 @@ from PyQt6.QtGui import QFont, QCloseEvent
 from PyQt6.QtWidgets import QWidget, QLabel, QLineEdit, QCheckBox, QPushButton, QMessageBox, QHBoxLayout, QVBoxLayout
 
 from App.MainWindow import MainWindow
-from App.NewUserWindow import NewUserWindow
+from App.Scene.ISceneManager import ISceneManager
 from App.Services.Connector import Connector
 
 
 class LoginWindow(QWidget):
-    def __init__(self):
+    def __init__(self, parent: ISceneManager):
         super().__init__()
+        self.parent: ISceneManager = parent
+
         self.mainWindow = None
         self.loginButton = None
         self.passwordEdit = None
@@ -84,15 +86,11 @@ class LoginWindow(QWidget):
 
     def onClickLoginButton(self):
         self.loginIsSuccessful = True
-        self.close()
-        self.mainWindow = MainWindow()
-        self.mainWindow.show()
+        self.parent.nextScene(2)
 
     def onClickCreateNewUser(self):
         self.registerNewUser = True
-        self.close()
-        self.registrationDialog = NewUserWindow()
-        self.registrationDialog.show()
+        self.parent.nextScene(1)
 
     def openApplicationWindow(self):
         self.close()
