@@ -5,7 +5,7 @@ name = "pypi"
 
 [packages]
 wxpython = "~=4.2"
-pyqt6 = "*"
+pyqt6 = "==6.5.1"
 azure-cosmos = "==4.4.*"
 python-dotenv = "==1.0.0"
 
