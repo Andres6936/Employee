@@ -10,5 +10,6 @@ if __name__ == '__main__':
     load_dotenv()
 
     app = QApplication(sys.argv)
+    app.setStyle("Fusion")
     window = SceneManager()
     sys.exit(app.exec())

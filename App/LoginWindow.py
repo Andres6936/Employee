@@ -1,6 +1,7 @@
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QFont, QCloseEvent
-from PyQt6.QtWidgets import QWidget, QLabel, QLineEdit, QCheckBox, QPushButton, QMessageBox, QHBoxLayout, QVBoxLayout
+from PyQt6.QtWidgets import QWidget, QLabel, QLineEdit, QCheckBox, QPushButton, QMessageBox, QVBoxLayout, \
+    QFormLayout
 
 from App.MainWindow import MainWindow
 from App.Scene.ISceneManager import ISceneManager
@@ -37,37 +38,33 @@ class LoginWindow(QWidget):
         loginLabel.setAlignment(Qt.AlignmentFlag.AlignTop | Qt.AlignmentFlag.AlignHCenter)
         mainLayout.addWidget(loginLabel)
 
-        usernameLayout = QHBoxLayout()
-        mainLayout.addLayout(usernameLayout)
-
-        usernameLabel = QLabel("Username:", self)
-        usernameLayout.addWidget(usernameLabel)
-
         usernameEdit = QLineEdit(self)
         usernameEdit.resize(250, 24)
         usernameEdit.textChanged.connect(self.onTextChangedUsername)
-        usernameLayout.addWidget(usernameEdit)
-
-        passwordLayout = QHBoxLayout()
-        mainLayout.addLayout(passwordLayout)
-
-        passwordLabel = QLabel("Password:", self)
-        passwordLayout.addWidget(passwordLabel)
 
         self.passwordEdit = QLineEdit(self)
         self.passwordEdit.setEchoMode(QLineEdit.EchoMode.Password)
         self.passwordEdit.resize(250, 24)
         self.passwordEdit.textChanged.connect(self.onTextChangedPassword)
-        passwordLayout.addWidget(self.passwordEdit)
 
         showPasswordCheckbox = QCheckBox("Show Password", self)
         showPasswordCheckbox.toggled.connect(self.onClickShowPasswordIfChecked)
-        mainLayout.addWidget(showPasswordCheckbox)
 
         self.loginButton = QPushButton("Login", self)
         self.loginButton.resize(320, 24)
         self.loginButton.setEnabled(False)
         self.loginButton.clicked.connect(self.onClickLoginButton)
+
+        mainForm = QFormLayout()
+        mainForm.setFieldGrowthPolicy(mainForm.FieldGrowthPolicy.AllNonFixedFieldsGrow)
+        mainForm.setAlignment(Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignTop)
+        mainForm.setLabelAlignment(Qt.AlignmentFlag.AlignRight)
+
+        mainForm.addRow("Username", usernameEdit)
+        mainForm.addRow("Password", self.passwordEdit)
+        mainForm.addWidget(showPasswordCheckbox)
+
+        mainLayout.addLayout(mainForm)
         mainLayout.addWidget(self.loginButton)
 
         notMemberLabel = QLabel("Not a member?", self)
