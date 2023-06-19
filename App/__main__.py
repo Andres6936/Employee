@@ -33,6 +33,18 @@ if __name__ == '__main__':
             border-bottom: 1px solid #5194FF;
         }
         
+        QPushButton#ForgotPasswordLabel {
+            color: #322CFF;
+            font: bold 12px 'Monospace';
+            padding-right: 8px;
+            text-align: right;
+        }
+        
+        QPushButton#ForgotPasswordLabel:pressed {
+            background-color: white;
+            border: none;
+        }
+        
         QPushButton#LoginGoogleButton {
             background-color: #CCC; 
             color: #332F2E;

@@ -57,6 +57,11 @@ class LoginWindow(QWidget):
         self.passwordEdit.addAction(actionShowPassword, QLineEdit.ActionPosition.TrailingPosition)
         self.passwordEdit.textChanged.connect(self.onTextChangedPassword)
 
+        forgotPasswordLabel = QPushButton("Forgot Password?")
+        forgotPasswordLabel.setObjectName("ForgotPasswordLabel")
+        forgotPasswordLabel.setFlat(True)
+        forgotPasswordLabel.clicked.connect(self.onClickForgotPassword)
+
         self.loginButton = QPushButton("Login", self)
         self.loginButton.setEnabled(False)
         self.loginButton.setObjectName("LoginButton")
@@ -73,7 +78,7 @@ class LoginWindow(QWidget):
         mainForm.addRow(loginLabel)
         mainForm.addRow(emailEdit)
         mainForm.addRow(self.passwordEdit)
-        mainForm.addRow(QLabel("Forgot Password?"))
+        mainForm.addRow(forgotPasswordLabel)
         mainForm.addRow(self.loginButton)
         mainForm.addRow(QLabel("OR"))
         mainForm.addRow(loginGoogleButton)
@@ -93,6 +98,9 @@ class LoginWindow(QWidget):
             self.passwordEdit.setEchoMode(QLineEdit.EchoMode.Normal)
         elif not checked:
             self.passwordEdit.setEchoMode(QLineEdit.EchoMode.Password)
+
+    def onClickForgotPassword(self):
+        print("To Forgot Password")
 
     def onClickLoginButton(self):
         self.loginIsSuccessful = True
