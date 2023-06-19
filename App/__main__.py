@@ -35,7 +35,7 @@ if __name__ == '__main__':
             color: white;
             font: bold 14px 'Monospace';
             border-radius: 12px; 
-            padding: 5px;
+            padding: 8px;
             margin: 12px; 
         }
          
