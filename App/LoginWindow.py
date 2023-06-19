@@ -43,8 +43,15 @@ class LoginWindow(QWidget):
 
         self.passwordEdit = QLineEdit(self)
         self.passwordEdit.setStyleSheet("""
-            border-radius: 12px;
-            padding: 3px
+            QLineEdit {
+                border: 1px solid #CCC;
+                border-radius: 12px;
+                padding: 3px 5px;
+            }
+            
+            QLineEdit:focus {
+                border: 2px solid #5194FF;
+            }
         """)
         self.passwordEdit.setEchoMode(QLineEdit.EchoMode.Password)
         self.passwordEdit.textChanged.connect(self.onTextChangedPassword)
