@@ -1,7 +1,7 @@
 from PyQt6.QtCore import Qt
-from PyQt6.QtGui import QCloseEvent, QIcon
+from PyQt6.QtGui import QCloseEvent, QIcon, QAction
 from PyQt6.QtSvgWidgets import QSvgWidget
-from PyQt6.QtWidgets import QWidget, QLabel, QLineEdit, QCheckBox, QPushButton, QMessageBox, QVBoxLayout, \
+from PyQt6.QtWidgets import QWidget, QLabel, QLineEdit, QPushButton, QMessageBox, QVBoxLayout, \
     QFormLayout, QHBoxLayout
 
 from App.MainWindow import MainWindow
@@ -47,14 +47,15 @@ class LoginWindow(QWidget):
         emailEdit.setPlaceholderText("Email ID")
         emailEdit.textChanged.connect(self.onTextChangedUsername)
 
+        actionShowPassword = QAction(self)
+        actionShowPassword.setIcon(QIcon('./Icons/Eye-Slash-Fill.svg'))
+        actionShowPassword.triggered.connect(self.onClickShowPasswordIfChecked)
+
         self.passwordEdit = QLineEdit(self)
         self.passwordEdit.setPlaceholderText("Password")
-        self.passwordEdit.addAction(QIcon('./Icons/Eye-Slash-Fill.svg'), QLineEdit.ActionPosition.TrailingPosition)
+        self.passwordEdit.addAction(actionShowPassword, QLineEdit.ActionPosition.TrailingPosition)
         self.passwordEdit.setEchoMode(QLineEdit.EchoMode.Password)
         self.passwordEdit.textChanged.connect(self.onTextChangedPassword)
-
-        showPasswordCheckbox = QCheckBox("Show Password", self)
-        showPasswordCheckbox.toggled.connect(self.onClickShowPasswordIfChecked)
 
         self.loginButton = QPushButton("Login", self)
         self.loginButton.setEnabled(False)
@@ -69,7 +70,6 @@ class LoginWindow(QWidget):
         mainForm.addRow(loginLabel)
         mainForm.addRow(emailEdit)
         mainForm.addRow(self.passwordEdit)
-        mainForm.addRow(showPasswordCheckbox)
         mainForm.addRow(self.loginButton)
 
         mainLayout.addLayout(mainForm)
