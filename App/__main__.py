@@ -12,14 +12,22 @@ if __name__ == '__main__':
     app = QApplication(sys.argv)
     app.setStyle("Fusion")
     app.setStyleSheet("""
+        QLabel#LoginTitle {
+            color: #332F2E;
+            font: bold 24px 'Monospace';
+            margin: 12px 12px
+        }
+    
         QLineEdit {
             border: none;
             border-bottom: 1px solid #CCC;
-            padding: 3px 5px;
+            font: normal 12px 'Monospace';
+            padding: 6px 8px;
+            margin: 3px 8px;
         }
         
         QLineEdit:focus {
-            border-bottom: 2px solid #5194FF;
+            border-bottom: 1px solid #5194FF;
         }
         
         QPushButton#LoginButton {

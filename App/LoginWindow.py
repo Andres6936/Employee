@@ -1,5 +1,5 @@
 from PyQt6.QtCore import Qt
-from PyQt6.QtGui import QFont, QCloseEvent
+from PyQt6.QtGui import QCloseEvent
 from PyQt6.QtWidgets import QWidget, QLabel, QLineEdit, QCheckBox, QPushButton, QMessageBox, QVBoxLayout, \
     QFormLayout
 
@@ -34,9 +34,7 @@ class LoginWindow(QWidget):
         mainLayout = QVBoxLayout(self)
 
         loginLabel = QLabel("Login")
-        loginLabel.setFont(QFont("Arial", 20))
-        loginLabel.setAlignment(Qt.AlignmentFlag.AlignTop | Qt.AlignmentFlag.AlignHCenter)
-        mainLayout.addWidget(loginLabel)
+        loginLabel.setObjectName("LoginTitle")
 
         emailEdit = QLineEdit(self)
         emailEdit.setPlaceholderText("Email ID")
@@ -60,6 +58,7 @@ class LoginWindow(QWidget):
         mainForm.setAlignment(Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignTop)
         mainForm.setLabelAlignment(Qt.AlignmentFlag.AlignRight)
 
+        mainForm.addRow(loginLabel)
         mainForm.addRow(emailEdit)
         mainForm.addRow(self.passwordEdit)
         mainForm.addRow(showPasswordCheckbox)
