@@ -21,9 +21,18 @@ if __name__ == '__main__':
         QLineEdit {
             border: none;
             border-bottom: 1px solid #CCC;
-            font: normal 12px 'Monospace';
-            padding: 6px 8px;
+            font: normal 13px 'Monospace';
+            padding-right: 30px;
+            padding-left: 8px;
+            padding-top: 10px;
+            padding-bottom: 10px;
             margin: 3px 8px;
+        }
+        
+        QLineEdit#PasswordEdit {
+            background-image: url('./Icons/Eye-Slash-Fill.svg');
+            background-repeat: no-repeat;
+            background-position: right;
         }
         
         QLineEdit:focus {

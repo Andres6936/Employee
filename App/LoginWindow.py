@@ -49,6 +49,7 @@ class LoginWindow(QWidget):
 
         self.passwordEdit = QLineEdit(self)
         self.passwordEdit.setPlaceholderText("Password")
+        self.passwordEdit.setObjectName("PasswordEdit")
         self.passwordEdit.setEchoMode(QLineEdit.EchoMode.Password)
         self.passwordEdit.textChanged.connect(self.onTextChangedPassword)
 
