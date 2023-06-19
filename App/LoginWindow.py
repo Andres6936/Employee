@@ -63,12 +63,15 @@ class LoginWindow(QWidget):
         forgotPasswordLabel.clicked.connect(self.onClickForgotPassword)
 
         self.loginButton = QPushButton("Login", self)
-        self.loginButton.setEnabled(False)
         self.loginButton.setObjectName("LoginButton")
         self.loginButton.clicked.connect(self.onClickLoginButton)
 
         labelOR = QLabel("OR")
         labelOR.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        labelOR.setStyleSheet("""
+            color: #878787;
+            font: normal 13px 'Monospace';
+        """)
 
         loginGoogleButton = QPushButton("Login with Google")
         loginGoogleButton.setObjectName("LoginGoogleButton")
