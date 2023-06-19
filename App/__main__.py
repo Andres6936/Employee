@@ -30,9 +30,13 @@ if __name__ == '__main__':
             padding: 5px;
             margin: 12px; 
         }
-            
-        QPushButton#LoginButton:hover {
+         
+         QPushButton#LoginButton:hover {
             background-color: #5194FF; 
+        }
+            
+        QPushButton#LoginButton:pressed {
+            background-color: #322CFF;
         }
             
         QPushButton#LoginButton:disabled {
