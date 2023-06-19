@@ -58,7 +58,7 @@ class LoginWindow(QWidget):
         self.passwordEdit.textChanged.connect(self.onTextChangedPassword)
 
         forgotPasswordLabel = QPushButton("Forgot Password?")
-        forgotPasswordLabel.setObjectName("ForgotPasswordLabel")
+        forgotPasswordLabel.setObjectName("LinkButton")
         forgotPasswordLabel.setFlat(True)
         forgotPasswordLabel.clicked.connect(self.onClickForgotPassword)
 
@@ -88,13 +88,18 @@ class LoginWindow(QWidget):
 
         mainLayout.addLayout(mainForm)
 
+        notMemberLayout = QHBoxLayout()
+        notMemberLayout.setAlignment(Qt.AlignmentFlag.AlignBottom | Qt.AlignmentFlag.AlignHCenter)
         notMemberLabel = QLabel("Not a member?", self)
-        notMemberLabel.setAlignment(Qt.AlignmentFlag.AlignBottom | Qt.AlignmentFlag.AlignHCenter)
-        mainLayout.addWidget(notMemberLabel)
+        notMemberLayout.addWidget(notMemberLabel)
 
-        signUpButton = QPushButton("Sign Up", self)
+        signUpButton = QPushButton("Register", self)
+        signUpButton.setObjectName("LinkButton")
+        signUpButton.setFlat(True)
         signUpButton.clicked.connect(self.onClickCreateNewUser)
-        mainLayout.addWidget(signUpButton)
+        notMemberLayout.addWidget(signUpButton)
+
+        mainLayout.addLayout(notMemberLayout)
 
     def onClickShowPasswordIfChecked(self, checked):
         if checked:
