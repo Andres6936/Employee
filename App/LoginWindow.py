@@ -42,6 +42,10 @@ class LoginWindow(QWidget):
         usernameEdit.textChanged.connect(self.onTextChangedUsername)
 
         self.passwordEdit = QLineEdit(self)
+        self.passwordEdit.setStyleSheet("""
+            border-radius: 12px;
+            padding: 3px
+        """)
         self.passwordEdit.setEchoMode(QLineEdit.EchoMode.Password)
         self.passwordEdit.textChanged.connect(self.onTextChangedPassword)
 
@@ -51,12 +55,22 @@ class LoginWindow(QWidget):
         self.loginButton = QPushButton("Login", self)
         self.loginButton.setEnabled(False)
         self.loginButton.setStyleSheet("""
-            background-color: #3859FF; 
-            color: white;
-            font: bold 14px 'Monospace';
-            border-radius: 12px; 
-            padding: 5px;
-            margin: 12px; 
+            QPushButton {
+                background-color: #3859FF; 
+                color: white;
+                font: bold 14px 'Monospace';
+                border-radius: 12px; 
+                padding: 5px;
+                margin: 12px; 
+            }
+            
+            QPushButton:hover {
+                background-color: #5194FF; 
+            }
+            
+            QPushButton:disabled {
+                background-color: #6BC4FF; 
+            }
         """)
         self.loginButton.clicked.connect(self.onClickLoginButton)
 
