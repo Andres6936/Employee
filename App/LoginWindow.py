@@ -1,7 +1,8 @@
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QCloseEvent
+from PyQt6.QtSvgWidgets import QSvgWidget
 from PyQt6.QtWidgets import QWidget, QLabel, QLineEdit, QCheckBox, QPushButton, QMessageBox, QVBoxLayout, \
-    QFormLayout
+    QFormLayout, QHBoxLayout
 
 from App.MainWindow import MainWindow
 from App.Scene.ISceneManager import ISceneManager
@@ -33,6 +34,12 @@ class LoginWindow(QWidget):
     def setUpMainWindow(self):
         mainLayout = QVBoxLayout(self)
 
+        illustrationLayout = QHBoxLayout()
+        illustration = QSvgWidget('./Illustrations/Enter-Password-1.svg')
+        illustrationLayout.addWidget(illustration, alignment=Qt.AlignmentFlag.AlignCenter)
+
+        mainLayout.addLayout(illustrationLayout)
+
         loginLabel = QLabel("Login")
         loginLabel.setObjectName("LoginTitle")
 
@@ -55,7 +62,7 @@ class LoginWindow(QWidget):
 
         mainForm = QFormLayout()
         mainForm.setFieldGrowthPolicy(mainForm.FieldGrowthPolicy.AllNonFixedFieldsGrow)
-        mainForm.setAlignment(Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignTop)
+        mainForm.setAlignment(Qt.AlignmentFlag.AlignCenter)
         mainForm.setLabelAlignment(Qt.AlignmentFlag.AlignRight)
 
         mainForm.addRow(loginLabel)
