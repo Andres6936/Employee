@@ -51,8 +51,15 @@ class LoginWindow(QWidget):
         showPasswordCheckbox.toggled.connect(self.onClickShowPasswordIfChecked)
 
         self.loginButton = QPushButton("Login", self)
-        self.loginButton.resize(320, 24)
         self.loginButton.setEnabled(False)
+        self.loginButton.setStyleSheet("""
+            background-color: #3859FF; 
+            color: white;
+            font: bold 14px 'Monospace';
+            border-radius: 12px; 
+            padding: 5px;
+            margin: 12px; 
+        """)
         self.loginButton.clicked.connect(self.onClickLoginButton)
 
         mainForm = QFormLayout()
