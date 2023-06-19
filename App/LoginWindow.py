@@ -62,10 +62,10 @@ class LoginWindow(QWidget):
 
         mainForm.addRow("Username", usernameEdit)
         mainForm.addRow("Password", self.passwordEdit)
-        mainForm.addWidget(showPasswordCheckbox)
+        mainForm.addRow(showPasswordCheckbox)
+        mainForm.addRow(self.loginButton)
 
         mainLayout.addLayout(mainForm)
-        mainLayout.addWidget(self.loginButton)
 
         notMemberLabel = QLabel("Not a member?", self)
         notMemberLabel.setAlignment(Qt.AlignmentFlag.AlignBottom | Qt.AlignmentFlag.AlignHCenter)
