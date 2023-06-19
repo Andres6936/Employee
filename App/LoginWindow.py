@@ -1,5 +1,5 @@
 from PyQt6.QtCore import Qt
-from PyQt6.QtGui import QCloseEvent
+from PyQt6.QtGui import QCloseEvent, QIcon
 from PyQt6.QtSvgWidgets import QSvgWidget
 from PyQt6.QtWidgets import QWidget, QLabel, QLineEdit, QCheckBox, QPushButton, QMessageBox, QVBoxLayout, \
     QFormLayout, QHBoxLayout
@@ -49,7 +49,7 @@ class LoginWindow(QWidget):
 
         self.passwordEdit = QLineEdit(self)
         self.passwordEdit.setPlaceholderText("Password")
-        self.passwordEdit.setObjectName("PasswordEdit")
+        self.passwordEdit.addAction(QIcon('./Icons/Eye-Slash-Fill.svg'), QLineEdit.ActionPosition.TrailingPosition)
         self.passwordEdit.setEchoMode(QLineEdit.EchoMode.Password)
         self.passwordEdit.textChanged.connect(self.onTextChangedPassword)
 
