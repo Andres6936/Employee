@@ -39,12 +39,10 @@ class LoginWindow(QWidget):
         mainLayout.addWidget(loginLabel)
 
         usernameEdit = QLineEdit(self)
-        usernameEdit.resize(250, 24)
         usernameEdit.textChanged.connect(self.onTextChangedUsername)
 
         self.passwordEdit = QLineEdit(self)
         self.passwordEdit.setEchoMode(QLineEdit.EchoMode.Password)
-        self.passwordEdit.resize(250, 24)
         self.passwordEdit.textChanged.connect(self.onTextChangedPassword)
 
         showPasswordCheckbox = QCheckBox("Show Password", self)
