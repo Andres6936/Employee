@@ -12,6 +12,12 @@ class SceneManager(QWidget):
     def __init__(self):
         super().__init__()
         self.setFixedSize(375, 667)
+        self.setObjectName("SceneManager")
+        self.setStyleSheet("""
+            QWidget#SceneManager {
+                background-color: white
+            }
+        """)
 
         self.loginWindow = LoginWindow(self)
         self.newUserWindow = NewUserWindow()

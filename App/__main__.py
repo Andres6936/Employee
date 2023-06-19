@@ -13,13 +13,13 @@ if __name__ == '__main__':
     app.setStyle("Fusion")
     app.setStyleSheet("""
         QLineEdit {
-            border: 1px solid #CCC;
-            border-radius: 12px;
+            border: none;
+            border-bottom: 1px solid #CCC;
             padding: 3px 5px;
         }
         
         QLineEdit:focus {
-            border: 2px solid #5194FF;
+            border-bottom: 2px solid #5194FF;
         }
         
         QPushButton#LoginButton {

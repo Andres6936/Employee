@@ -38,10 +38,12 @@ class LoginWindow(QWidget):
         loginLabel.setAlignment(Qt.AlignmentFlag.AlignTop | Qt.AlignmentFlag.AlignHCenter)
         mainLayout.addWidget(loginLabel)
 
-        usernameEdit = QLineEdit(self)
-        usernameEdit.textChanged.connect(self.onTextChangedUsername)
+        emailEdit = QLineEdit(self)
+        emailEdit.setPlaceholderText("Email ID")
+        emailEdit.textChanged.connect(self.onTextChangedUsername)
 
         self.passwordEdit = QLineEdit(self)
+        self.passwordEdit.setPlaceholderText("Password")
         self.passwordEdit.setEchoMode(QLineEdit.EchoMode.Password)
         self.passwordEdit.textChanged.connect(self.onTextChangedPassword)
 
@@ -58,8 +60,8 @@ class LoginWindow(QWidget):
         mainForm.setAlignment(Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignTop)
         mainForm.setLabelAlignment(Qt.AlignmentFlag.AlignRight)
 
-        mainForm.addRow("Username", usernameEdit)
-        mainForm.addRow("Password", self.passwordEdit)
+        mainForm.addRow(emailEdit)
+        mainForm.addRow(self.passwordEdit)
         mainForm.addRow(showPasswordCheckbox)
         mainForm.addRow(self.loginButton)
 
