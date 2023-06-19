@@ -33,6 +33,15 @@ if __name__ == '__main__':
             border-bottom: 1px solid #5194FF;
         }
         
+        QPushButton#LoginGoogleButton {
+            background-color: #CCC; 
+            color: #332F2E;
+            font: normal 12px 'Monospace';
+            border-radius: 12px; 
+            padding: 8px;
+            margin: 12px; 
+        }
+        
         QPushButton#LoginButton {
             background-color: #3859FF; 
             color: white;

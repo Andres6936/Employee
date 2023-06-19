@@ -53,14 +53,17 @@ class LoginWindow(QWidget):
 
         self.passwordEdit = QLineEdit(self)
         self.passwordEdit.setPlaceholderText("Password")
-        self.passwordEdit.addAction(actionShowPassword, QLineEdit.ActionPosition.TrailingPosition)
         self.passwordEdit.setEchoMode(QLineEdit.EchoMode.Password)
+        self.passwordEdit.addAction(actionShowPassword, QLineEdit.ActionPosition.TrailingPosition)
         self.passwordEdit.textChanged.connect(self.onTextChangedPassword)
 
         self.loginButton = QPushButton("Login", self)
         self.loginButton.setEnabled(False)
         self.loginButton.setObjectName("LoginButton")
         self.loginButton.clicked.connect(self.onClickLoginButton)
+
+        loginGoogleButton = QPushButton("Login with Google")
+        loginGoogleButton.setObjectName("LoginGoogleButton")
 
         mainForm = QFormLayout()
         mainForm.setFieldGrowthPolicy(mainForm.FieldGrowthPolicy.AllNonFixedFieldsGrow)
@@ -70,7 +73,10 @@ class LoginWindow(QWidget):
         mainForm.addRow(loginLabel)
         mainForm.addRow(emailEdit)
         mainForm.addRow(self.passwordEdit)
+        mainForm.addRow(QLabel("Forgot Password?"))
         mainForm.addRow(self.loginButton)
+        mainForm.addRow(QLabel("OR"))
+        mainForm.addRow(loginGoogleButton)
 
         mainLayout.addLayout(mainForm)
 
