@@ -67,6 +67,9 @@ class LoginWindow(QWidget):
         self.loginButton.setObjectName("LoginButton")
         self.loginButton.clicked.connect(self.onClickLoginButton)
 
+        labelOR = QLabel("OR")
+        labelOR.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
         loginGoogleButton = QPushButton("Login with Google")
         loginGoogleButton.setObjectName("LoginGoogleButton")
 
@@ -80,7 +83,7 @@ class LoginWindow(QWidget):
         mainForm.addRow(self.passwordEdit)
         mainForm.addRow(forgotPasswordLabel)
         mainForm.addRow(self.loginButton)
-        mainForm.addRow(QLabel("OR"))
+        mainForm.addRow(labelOR)
         mainForm.addRow(loginGoogleButton)
 
         mainLayout.addLayout(mainForm)
