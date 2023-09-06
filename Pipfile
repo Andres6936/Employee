@@ -8,8 +8,11 @@ wxpython = "~=4.2"
 pyqt6 = "==6.5.1"
 azure-cosmos = "==4.4.*"
 python-dotenv = "==1.0.0"
+supabase-py = "*"
+fastapi = "*"
+hypercorn = "*"
 
 [dev-packages]
 
 [requires]
-python_version = "3.10"
+python_version = "3.11"

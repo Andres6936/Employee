@@ -1,0 +1,29 @@
+POST http://127.0.0.1:8000/user/sign-up
+Content-Type: application/json
+
+{
+  "email": "adan@grr.la",
+  "password": "super_duper_secret_password"
+}
+
+###
+
+POST http://127.0.0.1:8000/user/sign-in
+Content-Type: application/json
+
+{
+  "email": "adan@grr.la",
+  "password": "super_duper_secret_password"
+}
+
+###
+POST http://127.0.0.1:8000/quotes/create
+Content-Type: application/json
+
+{
+  "Name": "Adan Eva",
+  "Email": "adan@grr.la",
+  "NumberPhone": "3196569548",
+  "Address": "Street 7 Number 122",
+  "Observation": ""
+}
