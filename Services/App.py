@@ -7,7 +7,7 @@ from hypercorn.asyncio import serve
 from hypercorn.config import Config
 from supabase_py import Client, create_client
 
-from Services.Models.Quotes import Quotes
+from Services.Models.Quote import Quote
 from Services.Models.SignIn import SignIn
 from Services.Models.SignUp import SignUp
 
@@ -39,7 +39,7 @@ def SignIn(signIn: SignIn):
 
 
 @app.post("/quotes/create")
-def CreateQuote(create: Quotes):
+def CreateQuote(create: Quote):
     response = supabase.table("Quotes").insert({
         "Name": create.Name,
         "Email": create.Email,

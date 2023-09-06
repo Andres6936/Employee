@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 
 
-class Quotes(BaseModel):
+class Quote(BaseModel):
     Name: str
     Email: str
     NumberPhone: str

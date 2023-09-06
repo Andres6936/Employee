@@ -27,3 +27,11 @@ Content-Type: application/json
   "Address": "Street 7 Number 122",
   "Observation": ""
 }
+
+###
+POST http://127.0.0.1:8000/user/documents/obligatory
+Content-Type: application/json
+
+{
+  "Base64": "{{FileDummyPDF}}"
+}
