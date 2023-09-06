@@ -8,9 +8,9 @@ wxpython = "~=4.2"
 pyqt6 = "==6.5.1"
 azure-cosmos = "==4.4.*"
 python-dotenv = "==1.0.0"
-supabase-py = "*"
 fastapi = "*"
 hypercorn = "*"
+supabase = "*"
 
 [dev-packages]
 
