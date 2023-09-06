@@ -47,14 +47,20 @@ def CreateQuote(create: Quotes):
         "Address": create.Address,
         "Observation": create.Observation,
     }).execute()
-    return {
-        'isBase64Encoded': False,
-        'statusCode': 200,
-        'body': {
-            'Inserted': 0,
-            'RowAffects': 0,
+
+    if len(response['data']) == 1:
+        [quote] = response['data']
+        return {
+            'isBase64Encoded': False,
+            'statusCode': 200,
+            'body': quote['Process']
         }
-    }
+    else:
+        return {
+            'isBase64Encoded': False,
+            'statusCode': 403,
+            'body': response
+        }
 
 
 @app.post("/user/documents/upload/obligatory")
