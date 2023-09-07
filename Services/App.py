@@ -1,7 +1,5 @@
 import asyncio
-import base64
 import os
-import uuid
 
 from dotenv import load_dotenv
 from fastapi import FastAPI
@@ -13,6 +11,7 @@ from Services.Models.DocumentsObligatory import DocumentsObligatory
 from Services.Models.Quote import Quote
 from Services.Models.SignIn import SignIn
 from Services.Models.SignUp import SignUp
+from Services.Modules.Documents import UploadAllDocuments
 
 load_dotenv()
 url: str = os.environ.get("SUPABASE_URL")
@@ -79,25 +78,7 @@ def UploadObligatoryDocuments(documents: DocumentsObligatory):
                      .eq('Process', documents.Process)
                      .execute())
     if responseCount.count == 1:
-        error = False
-        message = ''
-        for document in documents.Documents:
-            responseUpload = (
-                supabase.storage.from_('DocumentsQuote')
-                .upload('{0}.{1}'.format(str(uuid.uuid4()), document.MIME),
-                        base64.b64decode(document.Base64)))
-            if responseUpload.status_code == 200:
-                responseInsert = supabase.table('DocumentsQuotes').insert({
-                    'Process': documents.Process,
-                    'Type': document.Type,
-                    'URL': str(responseUpload.request.url),
-                }).execute()
-                if len(responseInsert.data) != 1:
-                    error = True
-                    message = 'Document not register in database'
-            else:
-                error = True
-                message = 'Document cannot upload to storage'
+        (error, message) = UploadAllDocuments(supabase, documents.Documents)
         if error:
             return {
                 'isBase64Encoded': False,
