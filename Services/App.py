@@ -1,6 +1,7 @@
 import asyncio
 import base64
 import os
+import uuid
 
 from dotenv import load_dotenv
 from fastapi import FastAPI
@@ -8,7 +9,7 @@ from hypercorn.asyncio import serve
 from hypercorn.config import Config
 from supabase import Client, create_client
 
-from Services.Models.Document import Document
+from Services.Models.DocumentsObligatory import DocumentsObligatory
 from Services.Models.Quote import Quote
 from Services.Models.SignIn import SignIn
 from Services.Models.SignUp import SignUp
@@ -72,20 +73,37 @@ def CreateQuote(create: Quote):
 
 
 @app.post("/user/documents/obligatory")
-def UploadObligatoryDocuments(document: Document):
-    response = (supabase.storage.from_('DocumentsQuote')
-                .upload('Dummy.PDF', base64.b64decode(document.Base64)))
-    if response.status_code == 200:
-        return {
-            'isBase64Encoded': False,
-            'statusCode': 200,
-            'body': 'Successful'
-        }
+def UploadObligatoryDocuments(documents: DocumentsObligatory):
+    responseCount = (supabase.table('Quotes')
+                     .select('*', count='exact')
+                     .eq('Process', documents.Process)
+                     .execute())
+    if responseCount.count == 1:
+        error = False
+        for document in documents.Documents:
+            response = (supabase.storage.from_('DocumentsQuote')
+                        .upload(str(uuid.uuid4()) + document.MIME,
+                                base64.b64decode(document.Base64)))
+            if response.status_code != 200:
+                error = True
+        if error:
+            return {
+                'isBase64Encoded': False,
+                'statusCode': 403,
+                'body': 'Error upload file'
+            }
+        else:
+            return {
+                'isBase64Encoded': False,
+                'statusCode': 200,
+                'body': 'Successful'
+            }
     else:
         return {
             'isBase64Encoded': False,
             'statusCode': 403,
-            'body': response
+            'body': 'Process Not Found'
         }
+
 
 asyncio.run(serve(app, Config.from_mapping(use_reloader=True)))

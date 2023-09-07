@@ -33,5 +33,18 @@ POST http://127.0.0.1:8000/user/documents/obligatory
 Content-Type: application/json
 
 {
-  "Base64": "{{FileDummyPDF}}"
+  "Process": "a0499fcf-561d-4db8-8947-1ebfadd8a913",
+  "Documents": [{
+    "Type": "RUT",
+    "MIME": "pdf",
+    "Base64": "{{FileDummyPDF}}"
+  }, {
+    "Type": "Identification",
+    "MIME": "pdf",
+    "Base64": "{{FileDummyPDF}}"
+  },  {
+    "Type": "Certificate",
+    "MIME": "pdf",
+    "Base64": "{{FileDummyPDF}}"
+  }]
 }
