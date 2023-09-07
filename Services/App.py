@@ -80,17 +80,28 @@ def UploadObligatoryDocuments(documents: DocumentsObligatory):
                      .execute())
     if responseCount.count == 1:
         error = False
+        message = ''
         for document in documents.Documents:
-            response = (supabase.storage.from_('DocumentsQuote')
-                        .upload(str(uuid.uuid4()) + document.MIME,
+            responseUpload = (supabase.storage.from_('DocumentsQuote')
+                              .upload('{0}.{1}'.format(str(uuid.uuid4()), document.MIME),
                                 base64.b64decode(document.Base64)))
-            if response.status_code != 200:
+            if responseUpload.status_code == 200:
+                responseInsert = supabase.table('DocumentsQuotes').insert({
+                    'Process': documents.Process,
+                    'Type': document.Type,
+                    'URL': str(responseUpload.request.url),
+                }).execute()
+                if len(responseInsert.data) != 1:
+                    error = True
+                    message = 'Document not register in database'
+            else:
                 error = True
+                message = 'Document cannot upload to storage'
         if error:
             return {
                 'isBase64Encoded': False,
                 'statusCode': 403,
-                'body': 'Error upload file'
+                'body': message
             }
         else:
             return {
