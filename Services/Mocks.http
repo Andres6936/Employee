@@ -48,3 +48,6 @@ Content-Type: application/json
     "Base64": "{{FileDummyPDF}}"
   }]
 }
+
+###
+GET http://127.0.0.1:8000/operator/review/documents/pending

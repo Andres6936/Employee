@@ -97,4 +97,25 @@ def UploadObligatoryDocuments(documents: DocumentsObligatory):
         }
 
 
+@app.get("/operator/review/documents/pending")
+def ReviewDocumentsPending():
+    response = (supabase.table('Quotes')
+                .select('*')
+                .eq('State', 'PENDING_REVIEW')
+                .execute())
+    pendingReview = response.data
+    for review in pendingReview:
+        responseDocuments = (supabase.table('DocumentsQuotes')
+                             .select('*')
+                             .eq('Process', review['Process'])
+                             .execute())
+        review['Documents'] = responseDocuments.data
+
+    return {
+        'isBase64Encoded': False,
+        'statusCode': 200,
+        'body': pendingReview
+    }
+
+
 asyncio.run(serve(app, Config.from_mapping(use_reloader=True)))
