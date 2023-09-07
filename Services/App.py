@@ -78,19 +78,35 @@ def UploadObligatoryDocuments(documents: DocumentsObligatory):
                      .eq('Process', documents.Process)
                      .execute())
     if responseCount.count == 1:
-        (error, message) = UploadAllDocuments(supabase, documents.Documents)
-        if error:
+        responseUpload = UploadAllDocuments(
+            supabase, documents.Documents, documents.Process
+        )
+        if responseUpload['Error']:
             return {
                 'isBase64Encoded': False,
                 'statusCode': 403,
-                'body': message
+                'body': responseUpload['Message']
             }
         else:
-            return {
-                'isBase64Encoded': False,
-                'statusCode': 200,
-                'body': 'Successful'
-            }
+            responseUpdate = (
+                supabase.table('Quotes')
+                .update({
+                    'State': 'PENDING_REVIEW'
+                })
+                .eq('Process', documents.Process)
+                .execute())
+            if len(responseUpdate.data) == 1:
+                return {
+                    'isBase64Encoded': False,
+                    'statusCode': 200,
+                    'body': 'Successful'
+                }
+            else:
+                return {
+                    'isBase64Encoded': False,
+                    'statusCode': 403,
+                    'body': 'Cannot update the state of Quote'
+                }
     else:
         return {
             'isBase64Encoded': False,

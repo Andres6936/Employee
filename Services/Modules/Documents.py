@@ -6,7 +6,7 @@ from supabase import Client
 from Services.Models.Document import Document
 
 
-def UploadAllDocuments(supabase: Client, documents: list[Document]):
+def UploadAllDocuments(supabase: Client, documents: list[Document], process: str):
     error = False
     message = ''
     for document in documents:
@@ -16,7 +16,7 @@ def UploadAllDocuments(supabase: Client, documents: list[Document]):
                     base64.b64decode(document.Base64)))
         if responseUpload.status_code == 200:
             responseInsert = supabase.table('DocumentsQuotes').insert({
-                'Process': documents.Process,
+                'Process': process,
                 'Type': document.Type,
                 'URL': str(responseUpload.request.url),
             }).execute()
