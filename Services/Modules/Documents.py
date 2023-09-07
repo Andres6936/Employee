@@ -6,6 +6,28 @@ from supabase import Client
 from Services.Models.Document import Document
 
 
+def UpdateQuoteToPendingReview(supabase: Client, process: str):
+    responseUpdate = (
+        supabase.table('Quotes')
+        .update({
+            'State': 'PENDING_REVIEW'
+        })
+        .eq('Process', process)
+        .execute())
+    if len(responseUpdate.data) == 1:
+        return {
+            'isBase64Encoded': False,
+            'statusCode': 200,
+            'body': 'Successful'
+        }
+    else:
+        return {
+            'isBase64Encoded': False,
+            'statusCode': 403,
+            'body': 'Cannot update the state of Quote'
+        }
+
+
 def UploadAllDocuments(supabase: Client, documents: list[Document], process: str):
     error = False
     message = ''

@@ -11,7 +11,7 @@ from Services.Models.DocumentsObligatory import DocumentsObligatory
 from Services.Models.Quote import Quote
 from Services.Models.SignIn import SignIn
 from Services.Models.SignUp import SignUp
-from Services.Modules.Documents import UploadAllDocuments
+from Services.Modules.Documents import UploadAllDocuments, UpdateQuoteToPendingReview
 
 load_dotenv()
 url: str = os.environ.get("SUPABASE_URL")
@@ -88,25 +88,7 @@ def UploadObligatoryDocuments(documents: DocumentsObligatory):
                 'body': responseUpload['Message']
             }
         else:
-            responseUpdate = (
-                supabase.table('Quotes')
-                .update({
-                    'State': 'PENDING_REVIEW'
-                })
-                .eq('Process', documents.Process)
-                .execute())
-            if len(responseUpdate.data) == 1:
-                return {
-                    'isBase64Encoded': False,
-                    'statusCode': 200,
-                    'body': 'Successful'
-                }
-            else:
-                return {
-                    'isBase64Encoded': False,
-                    'statusCode': 403,
-                    'body': 'Cannot update the state of Quote'
-                }
+            return UpdateQuoteToPendingReview(supabase, documents.Process)
     else:
         return {
             'isBase64Encoded': False,
