@@ -82,9 +82,10 @@ def UploadObligatoryDocuments(documents: DocumentsObligatory):
         error = False
         message = ''
         for document in documents.Documents:
-            responseUpload = (supabase.storage.from_('DocumentsQuote')
-                              .upload('{0}.{1}'.format(str(uuid.uuid4()), document.MIME),
-                                base64.b64decode(document.Base64)))
+            responseUpload = (
+                supabase.storage.from_('DocumentsQuote')
+                .upload('{0}.{1}'.format(str(uuid.uuid4()), document.MIME),
+                        base64.b64decode(document.Base64)))
             if responseUpload.status_code == 200:
                 responseInsert = supabase.table('DocumentsQuotes').insert({
                     'Process': documents.Process,
