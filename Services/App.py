@@ -124,7 +124,7 @@ def ReviewDocumentsApprove(process: Process):
     response = (
         supabase.table('Quotes')
         .update({
-            'State': 'APPROVE'
+            'State': 'PENDING_PAY'
         })
         .eq('Process', process.Process)
         .execute())
@@ -147,7 +147,30 @@ def ReviewDocumentsReject(process: Process):
     response = (
         supabase.table('Quotes')
         .update({
-            'State': 'REJECT'
+            'State': 'REJECT_BY_DOCUMENTS'
+        })
+        .eq('Process', process.Process)
+        .execute())
+    if len(response.data) == 1:
+        return {
+            'isBase64Encoded': False,
+            'statusCode': 200,
+            'body': 'Successful'
+        }
+    else:
+        return {
+            'isBase64Encoded': False,
+            'statusCode': 403,
+            'body': 'Cannot update the state of Quote'
+        }
+
+
+@app.post("/operator/pay/accept")
+def AcceptPayOfQuote(process: Process):
+    response = (
+        supabase.table('Quotes')
+        .update({
+            'State': 'PAY_ACCEPTED'
         })
         .eq('Process', process.Process)
         .execute())
