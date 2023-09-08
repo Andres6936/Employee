@@ -8,6 +8,7 @@ from hypercorn.config import Config
 from supabase import Client, create_client
 
 from Services.Models.DocumentsObligatory import DocumentsObligatory
+from Services.Models.Process import Process
 from Services.Models.Quote import Quote
 from Services.Models.SignIn import SignIn
 from Services.Models.SignUp import SignUp
@@ -97,7 +98,7 @@ def UploadObligatoryDocuments(documents: DocumentsObligatory):
         }
 
 
-@app.get("/operator/review/documents/pending")
+@app.post("/operator/review/documents/pending")
 def ReviewDocumentsPending():
     response = (supabase.table('Quotes')
                 .select('*')
@@ -116,6 +117,52 @@ def ReviewDocumentsPending():
         'statusCode': 200,
         'body': pendingReview
     }
+
+
+@app.post("/operator/review/documents/approve")
+def ReviewDocumentsApprove(process: Process):
+    response = (
+        supabase.table('Quotes')
+        .update({
+            'State': 'APPROVE'
+        })
+        .eq('Process', process.Process)
+        .execute())
+    if len(response.data) == 1:
+        return {
+            'isBase64Encoded': False,
+            'statusCode': 200,
+            'body': 'Successful'
+        }
+    else:
+        return {
+            'isBase64Encoded': False,
+            'statusCode': 403,
+            'body': 'Cannot update the state of Quote'
+        }
+
+
+@app.post("/operator/review/documents/reject")
+def ReviewDocumentsReject(process: Process):
+    response = (
+        supabase.table('Quotes')
+        .update({
+            'State': 'REJECT'
+        })
+        .eq('Process', process.Process)
+        .execute())
+    if len(response.data) == 1:
+        return {
+            'isBase64Encoded': False,
+            'statusCode': 200,
+            'body': 'Successful'
+        }
+    else:
+        return {
+            'isBase64Encoded': False,
+            'statusCode': 403,
+            'body': 'Cannot update the state of Quote'
+        }
 
 
 asyncio.run(serve(app, Config.from_mapping(use_reloader=True)))
