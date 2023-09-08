@@ -51,3 +51,22 @@ Content-Type: application/json
 
 ###
 POST http://127.0.0.1:8000/operator/review/documents/pending
+Content-Type: application/json
+
+{}
+
+###
+POST http://127.0.0.1:8000/operator/review/documents/approve
+Content-Type: application/json
+
+{
+  "Process": "a0499fcf-561d-4db8-8947-1ebfadd8a913"
+}
+
+###
+POST http://127.0.0.1:8000/operator/review/documents/reject
+Content-Type: application/json
+
+{
+  "Process": "a0499fcf-561d-4db8-8947-1ebfadd8a913"
+}
