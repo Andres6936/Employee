@@ -70,3 +70,11 @@ Content-Type: application/json
 {
   "Process": "a0499fcf-561d-4db8-8947-1ebfadd8a913"
 }
+
+###
+POST http://127.0.0.1:8000/operator/pay/accept
+Content-Type: application/json
+
+{
+  "Process": "a0499fcf-561d-4db8-8947-1ebfadd8a913"
+}
