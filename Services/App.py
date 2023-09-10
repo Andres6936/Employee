@@ -15,6 +15,7 @@ from Services.Models.SignUp import SignUp
 from Services.Modules.Documents import UploadAllDocuments, UpdateQuoteToPendingReview
 from Services.States.PlanType import PlanType
 from Services.States.QuoteStates import QuoteStates
+from Services.States.ServicesState import ServicesState
 
 load_dotenv()
 url: str = os.environ.get("SUPABASE_URL")
@@ -191,6 +192,20 @@ def AcceptPayOfQuote(process: Process):
             'statusCode': 403,
             'body': 'Cannot update the state of Quote'
         }
+
+
+@app.post("/operator/review/services/unschedule")
+def ReviewServicesUnschedule():
+    response = (
+        supabase.table('Services')
+        .select("*")
+        .eq('State', ServicesState.UNSCHEDULED.name)
+        .execute())
+    return {
+        'isBase64Encoded': False,
+        'statusCode': 200,
+        'body': response.data
+    }
 
 
 asyncio.run(serve(app, Config.from_mapping(use_reloader=True)))

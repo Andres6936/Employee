@@ -80,3 +80,9 @@ Content-Type: application/json
 {
   "Process": "{{ProcessId}}"
 }
+
+###
+POST http://127.0.0.1:8000/operator/review/services/unschedule
+Content-Type: application/json
+
+{}
