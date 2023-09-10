@@ -4,13 +4,14 @@ import uuid
 from supabase import Client
 
 from Services.Models.Document import Document
+from Services.States.QuoteStates import QuoteStates
 
 
 def UpdateQuoteToPendingReview(supabase: Client, process: str):
     responseUpdate = (
         supabase.table('Quotes')
         .update({
-            'State': 'PENDING_REVIEW'
+            'State': QuoteStates.PENDING_REVIEW.name
         })
         .eq('Process', process)
         .execute())
