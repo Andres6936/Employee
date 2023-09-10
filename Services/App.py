@@ -10,6 +10,7 @@ from supabase import Client, create_client
 from Services.Models.DocumentsObligatory import DocumentsObligatory
 from Services.Models.Process import Process
 from Services.Models.Quote import Quote
+from Services.Models.ScheduleService import ScheduleService
 from Services.Models.SignIn import SignIn
 from Services.Models.SignUp import SignUp
 from Services.Modules.Documents import UploadAllDocuments, UpdateQuoteToPendingReview
@@ -194,7 +195,7 @@ def AcceptPayOfQuote(process: Process):
         }
 
 
-@app.post("/operator/review/services/unschedule")
+@app.post("/operator/services/view/unschedule")
 def ReviewServicesUnschedule():
     response = (
         supabase.table('Services')
@@ -206,6 +207,30 @@ def ReviewServicesUnschedule():
         'statusCode': 200,
         'body': response.data
     }
+
+
+@app.post("/operator/services/schedule")
+def ScheduleService(schedule: ScheduleService):
+    response = (supabase.table("Schedule").insert({
+        'Service': schedule.Service,
+        'At': schedule.At,
+        'Operator': schedule.Operator,
+        'Manifest': schedule.Manifest,
+    }).execute())
+
+    if len(response.data) == 1:
+        [schedule] = response.data
+        return {
+            'isBase64Encoded': False,
+            'statusCode': 200,
+            'body': schedule
+        }
+    else:
+        return {
+            'isBase64Encoded': False,
+            'statusCode': 403,
+            'body': response
+        }
 
 
 asyncio.run(serve(app, Config.from_mapping(use_reloader=True)))

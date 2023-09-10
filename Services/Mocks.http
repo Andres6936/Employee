@@ -82,7 +82,18 @@ Content-Type: application/json
 }
 
 ###
-POST http://127.0.0.1:8000/operator/review/services/unschedule
+POST http://127.0.0.1:8000/operator/services/view/unschedule
 Content-Type: application/json
 
 {}
+
+###
+POST http://127.0.0.1:8000/operator/services/schedule
+Content-Type: application/json
+
+{
+  "Service": "{{ProcessId}}",
+  "At": "2023-10-14",
+  "Operator": "Any",
+  "Manifest": "Any"
+}
