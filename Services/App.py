@@ -13,6 +13,7 @@ from Services.Models.Quote import Quote
 from Services.Models.SignIn import SignIn
 from Services.Models.SignUp import SignUp
 from Services.Modules.Documents import UploadAllDocuments, UpdateQuoteToPendingReview
+from Services.States.PlanType import PlanType
 from Services.States.QuoteStates import QuoteStates
 
 load_dotenv()
@@ -56,6 +57,9 @@ def CreateQuote(create: Quote):
         "NumberPhone": create.NumberPhone,
         "Address": create.Address,
         "Observation": create.Observation,
+        "Value": create.Value,
+        # Is needed to validate the body with the defined in the enum
+        "Plan": PlanType(create.Plan).name
     }).execute()
 
     if len(response['data']) == 1:

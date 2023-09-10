@@ -7,3 +7,5 @@ class Quote(BaseModel):
     NumberPhone: str
     Address: str
     Observation: str
+    Value: int
+    Plan: str
