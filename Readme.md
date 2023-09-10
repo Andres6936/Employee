@@ -1,7 +1,7 @@
 ### Screenshot
 
 <p align="center">
-    <img src="./Data/Home.png" alt="Home" width="40%">
+    <img src="./Docs/Home.png" alt="Home" width="40%">
 </p>
 
 ### How to run
