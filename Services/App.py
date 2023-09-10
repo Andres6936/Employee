@@ -107,7 +107,7 @@ def ReviewDocumentsPending():
                 .execute())
     pendingReview = response.data
     for review in pendingReview:
-        responseDocuments = (supabase.table('DocumentsQuotes')
+        responseDocuments = (supabase.table('Documents')
                              .select('*')
                              .eq('Process', review['Process'])
                              .execute())

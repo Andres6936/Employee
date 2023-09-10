@@ -33,11 +33,11 @@ def UploadAllDocuments(supabase: Client, documents: list[Document], process: str
     message = ''
     for document in documents:
         responseUpload = (
-            supabase.storage.from_('DocumentsQuote')
+            supabase.storage.from_('Documents')
             .upload('{0}.{1}'.format(str(uuid.uuid4()), document.MIME),
                     base64.b64decode(document.Base64)))
         if responseUpload.status_code == 200:
-            responseInsert = supabase.table('DocumentsQuotes').insert({
+            responseInsert = supabase.table('Documents').insert({
                 'Process': process,
                 'Type': document.Type,
                 'URL': str(responseUpload.request.url),
