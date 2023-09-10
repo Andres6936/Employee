@@ -9,3 +9,5 @@ class ServicesState(Enum):
     UNSCHEDULED = auto()
     # The client cancel the applying of recurring service
     INACTIVE = auto()
+    # The service is pending of pay by the client
+    PENDING_PAY = auto()
