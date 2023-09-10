@@ -25,7 +25,9 @@ Content-Type: application/json
   "Email": "adan@grr.la",
   "NumberPhone": "3196569548",
   "Address": "Street 7 Number 122",
-  "Observation": ""
+  "Observation": "",
+  "Value": 87000,
+  "Plan": "MONTHLY"
 }
 
 ###
@@ -33,7 +35,7 @@ POST http://127.0.0.1:8000/user/documents/obligatory
 Content-Type: application/json
 
 {
-  "Process": "a0499fcf-561d-4db8-8947-1ebfadd8a913",
+  "Process": "{{ProcessId}}",
   "Documents": [{
     "Type": "RUT",
     "MIME": "pdf",
@@ -60,7 +62,7 @@ POST http://127.0.0.1:8000/operator/review/documents/approve
 Content-Type: application/json
 
 {
-  "Process": "a0499fcf-561d-4db8-8947-1ebfadd8a913"
+  "Process": "{{ProcessId}}"
 }
 
 ###
@@ -68,7 +70,7 @@ POST http://127.0.0.1:8000/operator/review/documents/reject
 Content-Type: application/json
 
 {
-  "Process": "a0499fcf-561d-4db8-8947-1ebfadd8a913"
+  "Process": "{{ProcessId}}"
 }
 
 ###
@@ -76,5 +78,5 @@ POST http://127.0.0.1:8000/operator/pay/accept
 Content-Type: application/json
 
 {
-  "Process": "a0499fcf-561d-4db8-8947-1ebfadd8a913"
+  "Process": "{{ProcessId}}"
 }

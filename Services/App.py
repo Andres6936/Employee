@@ -59,11 +59,11 @@ def CreateQuote(create: Quote):
         "Observation": create.Observation,
         "Value": create.Value,
         # Is needed to validate the body with the defined in the enum
-        "Plan": PlanType(create.Plan).name
+        "Plan": PlanType[create.Plan].name
     }).execute()
 
-    if len(response['data']) == 1:
-        [quote] = response['data']
+    if len(response.data) == 1:
+        [quote] = response.data
         return {
             'isBase64Encoded': False,
             'statusCode': 200,
