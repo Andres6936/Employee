@@ -13,6 +13,7 @@ from Services.Models.Quote import Quote
 from Services.Models.SignIn import SignIn
 from Services.Models.SignUp import SignUp
 from Services.Modules.Documents import UploadAllDocuments, UpdateQuoteToPendingReview
+from Services.States.QuoteStates import QuoteStates
 
 load_dotenv()
 url: str = os.environ.get("SUPABASE_URL")
@@ -102,7 +103,7 @@ def UploadObligatoryDocuments(documents: DocumentsObligatory):
 def ReviewDocumentsPending():
     response = (supabase.table('Quotes')
                 .select('*')
-                .eq('State', 'PENDING_REVIEW')
+                .eq('State', QuoteStates.PENDING_REVIEW.name)
                 .execute())
     pendingReview = response.data
     for review in pendingReview:
@@ -124,7 +125,7 @@ def ReviewDocumentsApprove(process: Process):
     response = (
         supabase.table('Quotes')
         .update({
-            'State': 'PENDING_PAY'
+            'State': QuoteStates.PENDING_PAY.name
         })
         .eq('Process', process.Process)
         .execute())
@@ -147,7 +148,7 @@ def ReviewDocumentsReject(process: Process):
     response = (
         supabase.table('Quotes')
         .update({
-            'State': 'REJECT_BY_DOCUMENTS'
+            'State': QuoteStates.REJECT_BY_DOCUMENTS.name
         })
         .eq('Process', process.Process)
         .execute())
@@ -170,7 +171,7 @@ def AcceptPayOfQuote(process: Process):
     response = (
         supabase.table('Quotes')
         .update({
-            'State': 'PAY_ACCEPTED'
+            'State': QuoteStates.PAY_ACCEPTED.name
         })
         .eq('Process', process.Process)
         .execute())
