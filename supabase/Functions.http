@@ -1,0 +1,5 @@
+POST https://mbcvutcdvgbbiqzcjtuc.supabase.co/functions/v1/hello_world
+Content-Type: application/json
+Authorization: Bearer {{TokenAnon}}
+
+{}

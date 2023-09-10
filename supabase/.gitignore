@@ -1,0 +1,4 @@
+# Supabase
+.branches
+.temp
+http-client.private.env.json

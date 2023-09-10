@@ -139,3 +139,4 @@ $RECYCLE.BIN/
 *.lnk
 .idea/*
 Input/
+node_modules/
