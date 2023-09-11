@@ -211,25 +211,54 @@ def ReviewServicesUnschedule():
 
 @app.post("/operator/services/schedule")
 def ScheduleService(schedule: ScheduleService):
-    response = (supabase.table("Schedule").insert({
-        'Service': schedule.Service,
-        'At': schedule.At,
-        'Operator': schedule.Operator,
-        'Manifest': schedule.Manifest,
-    }).execute())
+    # Verify that the service exist in the registers
+    responseExistService = (
+        supabase.table("Services")
+        .select('*', count='exact')
+        .eq('Process', schedule.Service)
+        .eq("State", ServicesState.UNSCHEDULED.name)
+        .execute())
 
-    if len(response.data) == 1:
-        [schedule] = response.data
+    responseExistSchedule = (
+        supabase.table("Schedule")
+        .select('*', count='exact')
+        .eq('Service', schedule.Service)
+        .execute()
+    )
+
+    if responseExistSchedule.count >= 1:
         return {
             'isBase64Encoded': False,
-            'statusCode': 200,
-            'body': schedule
+            'statusCode': 201,
+            'body': f'The service {schedule.Service} has been already schedule for the date f{schedule.At}'
         }
+
+    if responseExistService.count == 1:
+        response = (supabase.table("Schedule").insert({
+            'Service': schedule.Service,
+            'At': schedule.At,
+            'Operator': schedule.Operator,
+            'Manifest': schedule.Manifest,
+        }).execute())
+
+        if len(response.data) == 1:
+            [schedule] = response.data
+            return {
+                'isBase64Encoded': False,
+                'statusCode': 200,
+                'body': schedule
+            }
+        else:
+            return {
+                'isBase64Encoded': False,
+                'statusCode': 403,
+                'body': 'Cannot insert register in schedule'
+            }
     else:
         return {
             'isBase64Encoded': False,
-            'statusCode': 403,
-            'body': response
+            'statusCode': 404,
+            'body': 'Service not exist'
         }
 
 
