@@ -14,6 +14,7 @@ from Services.Models.ScheduleService import ScheduleService
 from Services.Models.SignIn import SignIn
 from Services.Models.SignUp import SignUp
 from Services.Modules.Documents import UploadAllDocuments, UpdateQuoteToPendingReview
+from Services.Modules.Schedule import UpdateStateOfScheduleService
 from Services.States.PlanType import PlanType
 from Services.States.QuoteStates import QuoteStates
 from Services.States.ServicesState import ServicesState
@@ -242,6 +243,14 @@ def ScheduleService(schedule: ScheduleService):
         }).execute())
 
         if len(response.data) == 1:
+            responseUpdate = UpdateStateOfScheduleService(supabase, schedule.Service)
+            if responseUpdate['Error']:
+                return {
+                    'isBase64Encoded': False,
+                    'statusCode': 403,
+                    'body': responseUpdate['Message']
+                }
+
             [schedule] = response.data
             return {
                 'isBase64Encoded': False,
