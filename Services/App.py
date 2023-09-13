@@ -8,6 +8,7 @@ from hypercorn.config import Config
 from supabase import Client, create_client
 
 from Services.Models.DocumentsObligatory import DocumentsObligatory
+from Services.Models.Operator import Operator
 from Services.Models.Process import Process
 from Services.Models.Quote import Quote
 from Services.Models.ScheduleService import ScheduleService
@@ -50,6 +51,27 @@ def SignIn(signIn: SignIn):
         'statusCode': 200,
         'body': response
     }
+
+
+@app.post("/operator/add")
+def AddOperator(operator: Operator):
+    response = supabase.table("Operator").insert({
+        'Name': operator.Name,
+        'NumberPhone': operator.NumberPhone
+    }).execute()
+    if len(response.data) == 1:
+        [operator] = response.data
+        return {
+            'isBase64Encoded': False,
+            'statusCode': 200,
+            'body': operator
+        }
+    else:
+        return {
+            'isBase64Encoded': False,
+            'statusCode': 403,
+            'body': 'Cannot insert register in table'
+        }
 
 
 @app.post("/quotes/create")
