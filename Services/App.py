@@ -293,4 +293,9 @@ def ScheduleService(schedule: ScheduleService):
         }
 
 
-asyncio.run(serve(app, Config.from_mapping(use_reloader=True)))
+def Startup():
+    asyncio.run(serve(app, Config.from_mapping(use_reloader=True)))
+
+
+if __name__ == '__main__':
+    Startup()

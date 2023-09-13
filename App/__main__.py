@@ -1,9 +1,11 @@
+import multiprocessing
 import sys
 
 from PyQt6.QtWidgets import QApplication
 from dotenv import load_dotenv
 
 from App.SceneManager import SceneManager
+from Services.App import Startup
 
 if __name__ == '__main__':
     # Take environment variables from .env
@@ -76,4 +78,11 @@ if __name__ == '__main__':
         }
     """)
     window = SceneManager()
-    sys.exit(app.exec())
+    process = multiprocessing.Process(target=Startup)
+    process.start()
+    # Block the call to that the user exit of app
+    code = app.exec()
+    # Terminate the backend process
+    process.terminate()
+    # Close the app and cleanup resources
+    sys.exit(code)
